@@ -155,7 +155,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
         try {
             // recebendo e validando dados da interface gráfica.
             String nome = "";
-            int telefone = 0;
+            String telefone = "";
 
             if (this.JTFNome.getText().length() < 2) {
                 throw new Mensagem("Nome deve conter ao menos 2 caracteres.");
@@ -163,10 +163,10 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
                 nome = this.JTFNome.getText();
             }
 
-            if (this.JTFTelfone.getText().length() < 2) {
+            if (this.JTFTelfone.getText().length() < 11) {
                 throw new Mensagem("Telefone deve conter ao menos 11 caracteres.");
             } else {
-                telefone = Integer.parseInt(this.JTFTelfone.getText());
+                telefone = (this.JTFTelfone.getText());
             }
 
             // envia os dados para o Controlador cadastrar
@@ -193,7 +193,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
             // recebendo e validando dados da interface grafica.
             int id = 0;
             String Nome = "";
-            int Telefone = 0;
+            String Telefone = "";
 
             if (this.JTFNome.getText().length() < 2) {
                 throw new Mensagem("Nome deve conter ao menos 2 caracteres.");
@@ -204,7 +204,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
             if (this.JTFTelfone.getText().length() < 2) {
                 throw new Mensagem("Telefone deve conter ao menos 11 caracteres.");
             } else {
-                Telefone = Integer.parseInt(this.JTFTelfone.getText());
+                Telefone = (this.JTFTelfone.getText());
             }
 
             if (this.JTableAmigos.getSelectedRow() == -1) {
