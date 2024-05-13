@@ -26,7 +26,7 @@ public class AmigoDAO {
                 
                 int id = res.getInt("id");
                 String nome = res.getString("nome");
-                int telefone = res.getInt("telefone");
+                String telefone = res.getString("telefone");
 
                 Amigo objeto = new Amigo(id, nome, telefone);
 
@@ -99,7 +99,7 @@ public class AmigoDAO {
 
             stmt.setInt(1, objeto.getId());
             stmt.setString(2, objeto.getNome());
-            stmt.setInt(3, objeto.getTelefone());
+            stmt.setString(3, objeto.getTelefone());
 
             stmt.execute();
             stmt.close();
@@ -133,7 +133,7 @@ public class AmigoDAO {
             PreparedStatement stmt = this.getConexao().prepareStatement(sql);
 
             stmt.setString(1, objeto.getNome());
-            stmt.setInt(2, objeto.getTelefone());
+            stmt.setString(2, objeto.getTelefone());
             stmt.setInt(3, objeto.getId());
 
             stmt.execute();
@@ -159,7 +159,7 @@ public class AmigoDAO {
             
             
             objeto.setNome(res.getString("nome"));
-            objeto.setTelefone(res.getInt("telefone"));
+            objeto.setTelefone(res.getString("telefone"));
            
 
             stmt.close();

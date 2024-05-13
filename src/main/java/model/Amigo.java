@@ -8,16 +8,16 @@ public class Amigo {
     // Atributos
     private int id;
     private String nome;
-    private int telefone;
+    private String telefone;
     AmigoDAO dao;
 
     // Construtor de Objeto Vazio
     public Amigo() {
-        this(0, "", 0);
+        this(0, "", "");
     }
 
     // Construtor com parâmetro
-    public Amigo (int id, String Nome, int Telefone) {
+    public Amigo (int id, String Nome, String Telefone) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
@@ -42,11 +42,11 @@ public class Amigo {
         this.nome = nome;
     }
     
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int Telefone) {
+    public void setTelefone(String Telefone) {
         this.telefone = telefone;
     }
 
@@ -59,7 +59,7 @@ public class Amigo {
         return dao.getMinhaLista();
     }
 
-    public boolean insertAmigoBD(String nome, int telefone) {
+    public boolean insertAmigoBD(String nome, String telefone) {
         int id = this.maiorID() + 1;
         Amigo objeto = new Amigo(id, nome, telefone);
         dao.insertAmigoBD(objeto);
@@ -72,7 +72,7 @@ public class Amigo {
         return true;
     }
 
-    public boolean updateAmigoBD(int id, String nome, int telefone) {
+    public boolean updateAmigoBD(int id, String nome, String telefone) {
         Amigo objeto = new Amigo(id, nome, telefone);
         dao.updateAmigoBD(objeto);
         return true;
