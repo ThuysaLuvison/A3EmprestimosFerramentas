@@ -132,7 +132,7 @@ public class AmigoDAO {
         try {
             PreparedStatement stmt = this.getConexao().prepareStatement(sql);
 
-            stmt.setString(1, objeto.getAmigo());
+            stmt.setString(1, objeto.getNome());
             stmt.setInt(2, objeto.getTelefone());
             stmt.setInt(3, objeto.getId());
 
@@ -159,7 +159,7 @@ public class AmigoDAO {
             
             
             objeto.setNome(res.getString("nome"));
-            objeto.setTelefone(res.getString("telefone"));
+            objeto.setTelefone(res.getInt("telefone"));
            
 
             stmt.close();

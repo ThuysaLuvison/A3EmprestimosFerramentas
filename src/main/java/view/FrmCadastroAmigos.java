@@ -1,15 +1,21 @@
 package view;
 
+import java.sql.Connection;
+import java.util.ArrayList;
 import model.Ferramenta;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Amigo;
 
 public class FrmCadastroAmigos extends javax.swing.JFrame {
 
-    private Ferramenta objetoferramenta; // cria o vínculo com o Ferramenta
-    
+    private Amigo objetoamigo; // cria o vínculo com o Ferramenta
+    private Connection conn;
+
     public FrmCadastroAmigos() {
         initComponents();
-        this.objetoferramenta = new Ferramenta(); // carrega objeto vazio de ferramenta
+        this.objetoamigo = new Amigo(); // carrega objeto vazio de ferramenta
+        this.carregaTabela();
     }
 
     /**
@@ -22,22 +28,20 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        JTableAmigos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        JTFFerramenta = new javax.swing.JTextField();
+        JTFNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        JTFMarca = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        JTFCusto = new javax.swing.JTextField();
+        JTFTelfone = new javax.swing.JTextField();
         b_cadastrar = new javax.swing.JButton();
         b_cancelar = new javax.swing.JButton();
-        b_editar = new javax.swing.JButton();
+        b_alterar = new javax.swing.JButton();
         b_apagar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        JTableAmigos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -45,18 +49,21 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Ferramenta", "Marca", "Preço"
+                "ID", "Nome", "Telefone"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(JTableAmigos);
 
         jLabel1.setText("Nome:");
 
         jLabel2.setText("Telefone:");
 
-        jLabel3.setText("Preço");
-
         b_cadastrar.setText("Cadastrar");
+        b_cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_cadastrarActionPerformed(evt);
+            }
+        });
 
         b_cancelar.setText("Cancelar");
         b_cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -65,9 +72,19 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
             }
         });
 
-        b_editar.setText("Editar");
+        b_alterar.setText("Alterar");
+        b_alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_alterarActionPerformed(evt);
+            }
+        });
 
         b_apagar.setText("Apagar");
+        b_apagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_apagarActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("CADASTRO DE AMIGOS");
 
@@ -82,17 +99,13 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JTFFerramenta))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JTFCusto))
+                        .addComponent(JTFNome))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JTFMarca))
+                        .addComponent(JTFTelfone))
                     .addComponent(b_cadastrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-                    .addComponent(b_editar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(b_alterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(b_apagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
@@ -112,21 +125,17 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(JTFFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(JTFMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(JTFCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addComponent(JTFTelfone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(49, 49, 49)
                         .addComponent(b_cancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(b_cadastrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(b_editar)
+                        .addComponent(b_alterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(b_apagar))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -140,6 +149,135 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_b_cancelarActionPerformed
+
+    private void b_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cadastrarActionPerformed
+        // TODO add your handling code here:
+        try {
+            // recebendo e validando dados da interface gráfica.
+            String nome = "";
+            int telefone = 0;
+
+            if (this.JTFNome.getText().length() < 2) {
+                throw new Mensagem("Nome deve conter ao menos 2 caracteres.");
+            } else {
+                nome = this.JTFNome.getText();
+            }
+
+            if (this.JTFTelfone.getText().length() < 2) {
+                throw new Mensagem("Telefone deve conter ao menos 11 caracteres.");
+            } else {
+                telefone = Integer.parseInt(this.JTFTelfone.getText());
+            }
+
+            // envia os dados para o Controlador cadastrar
+            if (this.objetoamigo.insertAmigoBD(nome, telefone)) {
+                JOptionPane.showMessageDialog(null, "Amigo Cadastrada com Sucesso!");
+                // limpa campos da interface
+                this.JTFNome.setText("");
+                this.JTFTelfone.setText("");
+            }
+            //Exibie no console o ferramenta cadastrado
+            System.out.println(this.objetoamigo.getMinhaLista().toString());
+
+        } catch (Mensagem erro) {
+            JOptionPane.showMessageDialog(null, erro.getMessage());
+        } catch (NumberFormatException erro2) {
+            JOptionPane.showMessageDialog(null, "Informe um número válido.");
+        }
+        this.carregaTabela();
+    }//GEN-LAST:event_b_cadastrarActionPerformed
+
+    private void b_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_alterarActionPerformed
+        // TODO add your handling code here:
+        try {
+            // recebendo e validando dados da interface grafica.
+            int id = 0;
+            String Nome = "";
+            int Telefone = 0;
+
+            if (this.JTFNome.getText().length() < 2) {
+                throw new Mensagem("Nome deve conter ao menos 2 caracteres.");
+            } else {
+                Nome = this.JTFNome.getText();
+            }
+
+            if (this.JTFTelfone.getText().length() < 2) {
+                throw new Mensagem("Telefone deve conter ao menos 11 caracteres.");
+            } else {
+                Telefone = Integer.parseInt(this.JTFTelfone.getText());
+            }
+
+            if (this.JTableAmigos.getSelectedRow() == -1) {
+                throw new Mensagem("Primeiro Selecione uma amigo para Alterar");
+            } else {
+                id = Integer.parseInt(this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 0).toString());
+            }
+
+            // envia os dados para a ferramenta processar
+            if (this.objetoamigo.updateAmigoBD(id, Nome, Telefone)) {
+                // limpa os campos
+                this.JTFNome.setText("");
+                this.JTFTelfone.setText("");
+                JOptionPane.showMessageDialog(null, "Amigo alterada com Sucesso!");
+
+            }
+            // Exibe no console a ferramenta cadastrada
+            System.out.println(this.objetoamigo.getMinhaLista().toString());
+        } catch (Mensagem erro) {
+            JOptionPane.showMessageDialog(null, erro.getMessage());
+        } catch (NumberFormatException erro2) {
+            JOptionPane.showMessageDialog(null, "Informe um número válido.");
+        } finally {
+            // atualiza a tabela.
+            carregaTabela();
+        }
+    }//GEN-LAST:event_b_alterarActionPerformed
+
+    private void b_apagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_apagarActionPerformed
+        // TODO add your handling code here:
+        try {
+            // validando dados da interface gráfica.
+            int id = 0;
+            if (this.JTableAmigos.getSelectedRow() == -1) {
+                throw new Mensagem("Primeiro Selecione uma amigo para APAGAR");
+            } else {
+                id = Integer.parseInt(this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 0).toString());
+            }
+
+            // retorna 0 -> primeiro botão | 1 -> segundo botão | 2 -> terceiro botão
+            int respostaUsuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja apagar este amigo ?");
+
+            if (respostaUsuario == 0) {// clicou em SIM
+                // envia os dados para o Ferramenta processar
+                if (this.objetoamigo.deleteAmigoBD(id)) {
+                    // limpa os campos
+                    this.JTFNome.setText("");
+                    this.JTFTelfone.setText("");
+                    JOptionPane.showMessageDialog(rootPane, "Amigo apagada com sucesso!");
+                }
+            }
+            // atualiza a tabela.
+            System.out.println(this.objetoamigo.getMinhaLista().toString());
+        } catch (Mensagem erro) {
+            JOptionPane.showMessageDialog(null, erro.getMessage());
+        } finally {
+            // atualiza a tabela.
+            carregaTabela();
+        }
+    }//GEN-LAST:event_b_apagarActionPerformed
+    
+    public void carregaTabela() {
+        DefaultTableModel modelo = (DefaultTableModel) this.JTableAmigos.getModel();
+        modelo.setNumRows(0); // Posiciona na primeira linha da tabela
+        // Carrega a lista de objetos ferramenta
+        ArrayList<Amigo> minhaLista = objetoamigo.getMinhaLista();
+        for (Amigo a : minhaLista) {
+            modelo.addRow(new Object[]{
+                a.getId(),
+                a.getNome(),
+                a.getTelefone()});
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -177,18 +315,16 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField JTFCusto;
-    private javax.swing.JTextField JTFFerramenta;
-    private javax.swing.JTextField JTFMarca;
+    private javax.swing.JTextField JTFNome;
+    private javax.swing.JTextField JTFTelfone;
+    private javax.swing.JTable JTableAmigos;
+    private javax.swing.JButton b_alterar;
     private javax.swing.JButton b_apagar;
     private javax.swing.JButton b_cadastrar;
     private javax.swing.JButton b_cancelar;
-    private javax.swing.JButton b_editar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
