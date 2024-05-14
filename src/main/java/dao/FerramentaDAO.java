@@ -58,37 +58,8 @@ public class FerramentaDAO {
         return maiorID;
     }
 
-    public Connection getConexao() {
-
-        Connection connection = null;  //instância da conexão
-        try {
-
-            String driver = "com.mysql.cj.jdbc.Driver";
-            Class.forName(driver);
-
-
-            String server = "localhost"; 
-            String database = "db_A3";
-            String url = "jdbc:mysql://" + server + ":3306/" + database + "?useTimezone=true&serverTimezone=UTC";
-            String user = "root";
-            String password = "Unisul@1520";
-
-            connection = DriverManager.getConnection(url, user, password);
-
-            if (connection != null) {
-                System.out.println("Status: Conectado!");
-            } else {
-                System.out.println("Status: NÃO CONECTADO!");
-            }
-            return connection;
-
-        } catch (ClassNotFoundException e) {  
-            System.out.println("O driver nao foi encontrado. " + e.getMessage());
-            return null;
-        } catch (SQLException e) {
-            System.out.println("Nao foi possivel conectar...");
-            return null;
-        }
+       private Connection getConexao() {
+        return ConexaoDataBaseDAO.getConnection();
     }
 
     // Cadastra novo ferramenta
