@@ -1,6 +1,6 @@
 # Projeto A3 Unisul primeira fase
 
-# Contextualização
+## Contextualização
 - Esta é uma versão do sistema para a IDE NetBeans.
 - O projeto no NetBeans deve ser chamado A3EmprestimosFerramentas.
 - Os dados estão armazenados no banco de dados MySQL.
@@ -8,10 +8,10 @@
 - A pasta src contêm os fontes do projeto.
 - A interface gráfica foi construída com o auxílio da IDE NetBeans.
 
-# Objetivo 
+## Objetivo 
 - O objetivo desse trabalho é de demonstrar conhecimento em desenvolver habilidades básicas sobre programação, resolvendo problemas e criando soluções para alcançar os objetivos propostos. 
 
-# Requisitos funcionais
+## Requisitos funcionais
 - RF01 - Cadastro de ferramentas: O software deve permitir que o usuário cadastre as
 ferramentas, como nome, marca e custo.
 - RF02 - Cadastro de amigos: O software deve permitir que o usuário cadastre os dados
@@ -36,7 +36,7 @@ mais empréstimos.
 novo empréstimo se o amigo ainda tem ferramentas não devolvidas e informar ao
 usuário.
 
-# Requisitos não funcionais
+## Requisitos não funcionais
 - RNF01 - Localização: O software deve ser executado localmente no computador do
 usuário, sem necessidade de conexão com a internet.
 - RNF02 - Interface Amigável: O software deve ter uma interface fácil de usar e intuitiva,
@@ -44,43 +44,12 @@ adequada para usuários não técnicos, como o tio-avô.
 - RNF03 - Segurança: O software deve garantir a segurança dos dados cadastrados,
 protegendo informações pessoais e financeiras dos usuários.
 
-# Banco de dados
+## Banco de dados
 - Abaixo o script para a criação do banco de dados e da tabela
-```
-#o comando abaixo cria o database chamado db_A3
-CREATE DATABASE IF NOT EXISTS db_A3;
 
-#o comando abaixo acessa o database db_A3
-USE db_A3;
+[Script BD](https://github.com/ThuysaLuvison/A3EmprestimosFerramentas/blob/master/banco.sql)
 
-#o comando abaixo remove a tabela para recriá-la
-DROP TABLE IF EXISTS tb_ferramentas;
-
-#o comando abaixo cria a tabela de tb_ferramentas
-CREATE TABLE tb_ferramentas (
-id INTEGER NOT NULL,
-ferramenta VARCHAR(100),
-marca VARCHAR(50),
-preco DOUBLE,
-PRIMARY KEY(id)
-);
-
-#o comando abaixo acessa o database db_A3
-USE db_A3;
-
-#o comando abaixo remove a tabela para recriá-la
-DROP TABLE IF EXISTS tb_amigos;
-
-#o comando abaixo cria a tabela de tb_amigos
-CREATE TABLE tb_amigos (
-id INTEGER NOT NULL,
-nome VARCHAR(100),
-telefone VARCHAR(50),
-PRIMARY KEY(id)
-);
-```
-
-# Criadores
+## Criadores
 - Bruno Hudson Siebert Costa
 - João Pedro Farias da Silva
 - Thuysa Monique Luvison da Rosa
