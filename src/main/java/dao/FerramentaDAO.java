@@ -9,17 +9,22 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import model.Ferramenta;
 
-public class FerramentaDAO {
+public class FerramentaDAO  {
 
     public ArrayList<Ferramenta> minhaLista = new ArrayList<>();
-
+    
+    private ConexaoDataBaseDAO db;
+    
+    public FerramentaDAO (){
+        this.db = new ConexaoDataBaseDAO();
+    }
 
     public ArrayList<Ferramenta> getMinhaLista() {
 
         minhaLista.clear(); // Limpa nosso ArrayList
 
         try {
-            Statement stmt = this.getConexao().createStatement();
+            Statement stmt = db.getConexao().createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM tb_ferramentas");
             while (res.next()) {
                 
@@ -47,7 +52,7 @@ public class FerramentaDAO {
     public int maiorID() {
         int maiorID = 0;
         try {
-            Statement stmt = this.getConexao().createStatement();
+            Statement stmt = db.getConexao().createStatement();
             ResultSet res = stmt.executeQuery("SELECT MAX(id) id FROM tb_ferramentas");
             res.next();
             maiorID = res.getInt("id");
@@ -57,16 +62,11 @@ public class FerramentaDAO {
         }
         return maiorID;
     }
-
-       private Connection getConexao() {
-        return ConexaoDataBaseDAO.getConnection();
-    }
-
     // Cadastra novo ferramenta
     public boolean insertFerramentaBD(Ferramenta objeto) {
         String sql = "INSERT INTO tb_ferramentas(id,ferramenta,marca,preco) VALUES(?,?,?,?)";
         try {
-            PreparedStatement stmt = this.getConexao().prepareStatement(sql);
+            PreparedStatement stmt = db.getConexao().prepareStatement(sql);
 
             stmt.setInt(1, objeto.getId());
             stmt.setString(2, objeto.getFerramenta());
@@ -86,7 +86,7 @@ public class FerramentaDAO {
 
     public boolean deleteFerramentaBD(int id) {
         try {
-            Statement stmt = this.getConexao().createStatement();
+            Statement stmt = db.getConexao().createStatement();
             stmt.executeUpdate("DELETE FROM tb_ferramentas WHERE id = " + id);
             stmt.close();
 
@@ -102,7 +102,7 @@ public class FerramentaDAO {
         String sql = "UPDATE tb_ferramentas set ferramenta = ? ,marca = ? ,preco = ? WHERE id = ?";
 
         try {
-            PreparedStatement stmt = this.getConexao().prepareStatement(sql);
+            PreparedStatement stmt = db.getConexao().prepareStatement(sql);
 
             stmt.setString(1, objeto.getFerramenta());
             stmt.setString(2, objeto.getMarca());
@@ -125,7 +125,7 @@ public class FerramentaDAO {
         Ferramenta objeto = new Ferramenta();
         objeto.setId(id);
         try {
-            Statement stmt = this.getConexao().createStatement();
+            Statement stmt = db.getConexao().createStatement();
             
             ResultSet res = stmt.executeQuery("SELECT * FROM tb_ferramentas WHERE id = " + id);
             res.next();

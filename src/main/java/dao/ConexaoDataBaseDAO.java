@@ -5,10 +5,10 @@ import java.sql.SQLException;
 
 public class ConexaoDataBaseDAO {
 
-    private static Connection connection = null;
+    private static Connection conexao = null;
 
-    public static Connection getConnection() {
-        if (connection == null) {
+    public static Connection getConexao() {
+        if (conexao == null) {
             try {
                 String driver = "com.mysql.cj.jdbc.Driver";
                 Class.forName(driver);
@@ -19,9 +19,9 @@ public class ConexaoDataBaseDAO {
                 String user = "root";
                 String password = "Unisul@1520";
 
-                connection = DriverManager.getConnection(url, user, password);
+                conexao = DriverManager.getConnection(url, user, password);
 
-                if (connection != null) {
+                if (conexao != null) {
                     System.out.println("Status: Conectado!");
                 } else {
                     System.out.println("Status: NÃO CONECTADO!");
@@ -32,6 +32,6 @@ public class ConexaoDataBaseDAO {
                 System.out.println("Não foi possível conectar...");
             }
         }
-        return connection;
+        return conexao;
     }
 }
