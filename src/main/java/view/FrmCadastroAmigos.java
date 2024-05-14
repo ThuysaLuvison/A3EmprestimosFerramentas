@@ -32,7 +32,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         JTFNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        JTFTelfone = new javax.swing.JTextField();
+        JTFTelefone = new javax.swing.JTextField();
         b_cadastrar = new javax.swing.JButton();
         b_cancelar = new javax.swing.JButton();
         b_alterar = new javax.swing.JButton();
@@ -52,6 +52,11 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
                 "ID", "Nome", "Telefone"
             }
         ));
+        JTableAmigos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTableAmigosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(JTableAmigos);
 
         jLabel1.setText("Nome:");
@@ -103,7 +108,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JTFTelfone))
+                        .addComponent(JTFTelefone))
                     .addComponent(b_cadastrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                     .addComponent(b_alterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(b_apagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -129,7 +134,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(JTFTelfone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JTFTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(49, 49, 49)
                         .addComponent(b_cancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -163,18 +168,21 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
                 nome = this.JTFNome.getText();
             }
 
-            if (this.JTFTelfone.getText().length() < 11) {
+            if (this.JTFTelefone.getText().length() < 11) {
                 throw new Mensagem("Telefone deve conter ao menos 11 caracteres.");
             } else {
-                telefone = (this.JTFTelfone.getText());
+                telefone = (this.JTFTelefone.getText());
             }
+
+            System.out.println(nome);
+            System.out.println(telefone);
 
             // envia os dados para o Controlador cadastrar
             if (this.objetoamigo.insertAmigoBD(nome, telefone)) {
                 JOptionPane.showMessageDialog(null, "Amigo Cadastrada com Sucesso!");
                 // limpa campos da interface
                 this.JTFNome.setText("");
-                this.JTFTelfone.setText("");
+                this.JTFTelefone.setText("");
             }
             //Exibie no console o ferramenta cadastrado
             System.out.println(this.objetoamigo.getMinhaLista().toString());
@@ -192,19 +200,19 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
         try {
             // recebendo e validando dados da interface grafica.
             int id = 0;
-            String Nome = "";
-            String Telefone = "";
+            String nome = "";
+            String telefone = "";
 
             if (this.JTFNome.getText().length() < 2) {
                 throw new Mensagem("Nome deve conter ao menos 2 caracteres.");
             } else {
-                Nome = this.JTFNome.getText();
+                nome = this.JTFNome.getText();
             }
 
-            if (this.JTFTelfone.getText().length() < 2) {
+            if (this.JTFTelefone.getText().length() < 2) {
                 throw new Mensagem("Telefone deve conter ao menos 11 caracteres.");
             } else {
-                Telefone = (this.JTFTelfone.getText());
+                telefone = (this.JTFTelefone.getText());
             }
 
             if (this.JTableAmigos.getSelectedRow() == -1) {
@@ -214,10 +222,10 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
             }
 
             // envia os dados para a ferramenta processar
-            if (this.objetoamigo.updateAmigoBD(id, Nome, Telefone)) {
+            if (this.objetoamigo.updateAmigoBD(id, nome, telefone)) {
                 // limpa os campos
                 this.JTFNome.setText("");
-                this.JTFTelfone.setText("");
+                this.JTFTelefone.setText("");
                 JOptionPane.showMessageDialog(null, "Amigo alterada com Sucesso!");
 
             }
@@ -252,7 +260,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
                 if (this.objetoamigo.deleteAmigoBD(id)) {
                     // limpa os campos
                     this.JTFNome.setText("");
-                    this.JTFTelfone.setText("");
+                    this.JTFTelefone.setText("");
                     JOptionPane.showMessageDialog(rootPane, "Amigo apagada com sucesso!");
                 }
             }
@@ -265,6 +273,17 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
             carregaTabela();
         }
     }//GEN-LAST:event_b_apagarActionPerformed
+
+    private void JTableAmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableAmigosMouseClicked
+        // TODO add your handling code here:
+        if (this.JTableAmigos.getSelectedRow() != -1) {
+            String nome = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 1).toString();
+            String telefone = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 2).toString();
+
+            this.JTFNome.setText(nome);
+            this.JTFTelefone.setText(telefone);
+        }
+    }//GEN-LAST:event_JTableAmigosMouseClicked
     
     public void carregaTabela() {
         DefaultTableModel modelo = (DefaultTableModel) this.JTableAmigos.getModel();
@@ -316,7 +335,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField JTFNome;
-    private javax.swing.JTextField JTFTelfone;
+    private javax.swing.JTextField JTFTelefone;
     private javax.swing.JTable JTableAmigos;
     private javax.swing.JButton b_alterar;
     private javax.swing.JButton b_apagar;
