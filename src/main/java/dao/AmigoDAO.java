@@ -1,4 +1,5 @@
 package dao;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,12 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import model.Amigo;
 
-
 public class AmigoDAO {
- 
 
     public ArrayList<Amigo> minhaLista = new ArrayList<>();
-
 
     public ArrayList<Amigo> getMinhaLista() {
 
@@ -23,7 +21,7 @@ public class AmigoDAO {
             Statement stmt = this.getConexao().createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM tb_amigos");
             while (res.next()) {
-                
+
                 int id = res.getInt("id");
                 String nome = res.getString("nome");
                 String telefone = res.getString("telefone");
@@ -58,37 +56,8 @@ public class AmigoDAO {
         return maiorID;
     }
 
-    public Connection getConexao() {
-
-        Connection connection = null;  //instância da conexão
-        try {
-
-            String driver = "com.mysql.cj.jdbc.Driver";
-            Class.forName(driver);
-
-
-            String server = "localhost"; 
-            String database = "db_A3";
-            String url = "jdbc:mysql://" + server + ":3306/" + database + "?useTimezone=true&serverTimezone=UTC";
-            String user = "root";
-            String password = "Unisul@1520";
-
-            connection = DriverManager.getConnection(url, user, password);
-
-            if (connection != null) {
-                System.out.println("Status: Conectado!");
-            } else {
-                System.out.println("Status: NÃO CONECTADO!");
-            }
-            return connection;
-
-        } catch (ClassNotFoundException e) {  
-            System.out.println("O driver nao foi encontrado. " + e.getMessage());
-            return null;
-        } catch (SQLException e) {
-            System.out.println("Nao foi possivel conectar...");
-            return null;
-        }
+    private Connection getConexao() {
+        return ConexaoDataBaseDAO.getConnection();
     }
 
     // Cadastra novo amigo
@@ -111,7 +80,6 @@ public class AmigoDAO {
         }
     }
 
-
     public boolean deleteAmigoBD(int id) {
         try {
             Statement stmt = this.getConexao().createStatement();
@@ -123,7 +91,6 @@ public class AmigoDAO {
         }
         return true;
     }
-
 
     public boolean updateAmigoBD(Amigo objeto) {
 
@@ -147,20 +114,17 @@ public class AmigoDAO {
         }
     }
 
-
     public Amigo carregaAmigo(int id) {
         Amigo objeto = new Amigo();
         objeto.setId(id);
         try {
             Statement stmt = this.getConexao().createStatement();
-            
+
             ResultSet res = stmt.executeQuery("SELECT * FROM tb_amigos WHERE id = " + id);
             res.next();
-            
-            
+
             objeto.setNome(res.getString("nome"));
             objeto.setTelefone(res.getString("telefone"));
-           
 
             stmt.close();
         } catch (SQLException erro) {
