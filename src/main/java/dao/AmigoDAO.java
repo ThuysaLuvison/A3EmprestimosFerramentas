@@ -68,7 +68,7 @@ public class AmigoDAO {
 
 
             String server = "localhost"; 
-            String database = "db_amigos";
+            String database = "db_A3";
             String url = "jdbc:mysql://" + server + ":3306/" + database + "?useTimezone=true&serverTimezone=UTC";
             String user = "root";
             String password = "Unisul@1520";

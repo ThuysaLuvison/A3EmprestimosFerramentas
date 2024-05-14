@@ -17,7 +17,7 @@ public class Amigo {
     }
 
     // Construtor com parâmetro
-    public Amigo (int id, String Nome, String Telefone) {
+    public Amigo (int id, String nome, String telefone) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
