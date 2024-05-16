@@ -1,17 +1,21 @@
 package dao;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 /**
  * Classe responsável por estabelecer a conexão com o banco de dados.
  */
 public class ConexaoDataBaseDAO {
-    
+
     private static Connection conexao = null;
-/**
- * Retorna a conexão com o banco de dados.
- * @return - Retorna a conexão com o banco de dados.
- */
+
+    /**
+     * Retorna a conexão com o banco de dados.
+     *
+     * @return - Retorna a conexão com o banco de dados.
+     */
     public static Connection getConexao() {
         if (conexao == null) {
             try {
@@ -26,13 +30,13 @@ public class ConexaoDataBaseDAO {
                 String url = "jdbc:mysql://" + server + ":3306/" + database + "?useTimezone=true&serverTimezone=UTC";
                 String user = "root";
                 String password = "Unisul@1520";
-/**
- * Estabelecendo a conexão.
- */
+                /**
+                 * Estabelecendo a conexão.
+                 */
                 conexao = DriverManager.getConnection(url, user, password);
-/**
- * Verificando se a conexão foi estabelecida com sucesso.
- */
+                /**
+                 * Verificando se a conexão foi estabelecida com sucesso.
+                 */
                 if (conexao != null) {
                     System.out.println("Status: Conectado!");
                 } else {
