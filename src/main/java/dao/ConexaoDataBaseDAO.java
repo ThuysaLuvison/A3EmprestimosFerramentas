@@ -31,7 +31,7 @@ public class ConexaoDataBaseDAO {
                 String user = "root";
                 String password = "Unisul@1520";
                 /**
-                 * Estabelecendo a conexão.
+                 * Estabelecendo conexão.
                  */
                 conexao = DriverManager.getConnection(url, user, password);
                 /**
