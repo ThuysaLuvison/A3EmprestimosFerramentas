@@ -1,6 +1,6 @@
 package principal;
 
-import view.FrmMenuPrincipal;
+import visao.FrmMenuPrincipal;
 
 /**
  * Classe principal responsável por iniciar a aplicação. 
