@@ -52,7 +52,7 @@ protegendo informações pessoais e financeiras dos usuários.
 - Senha: Unisul@1520
 
 ## Criadores
-- Bruno Hudson Siebert Costa
+- Bruno Hudson Siebert Cost
 - João Pedro Farias da Silva
 - Thuysa Monique Luvison da Rosa
 - Tulio Anesio da Rosa
