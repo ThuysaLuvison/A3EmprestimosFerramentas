@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import model.Ferramenta;
+import modelo.Ferramenta;
 
 /**
  * Classe responsável pela manipulação de dados das ferramentas no banco de

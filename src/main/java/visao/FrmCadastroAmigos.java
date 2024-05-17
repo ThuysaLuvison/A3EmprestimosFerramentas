@@ -1,11 +1,11 @@
-package view;
+package visao;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import model.Ferramenta;
+import modelo.Ferramenta;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Amigo;
+import modelo.Amigo;
 
 public class FrmCadastroAmigos extends javax.swing.JFrame {
 

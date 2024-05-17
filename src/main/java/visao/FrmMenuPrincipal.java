@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package visao;
 
 /**
  *
@@ -63,6 +63,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenu1.add(jMenuItemCadastroAmigos);
 
         jMenuItemRelatorio.setText("Relatorio");
+        jMenuItemRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRelatorioActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemRelatorio);
 
         jMenuItemSair.setText("Sair");
@@ -117,6 +122,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jMenuItemSairActionPerformed
+
+    private void jMenuItemRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRelatorioActionPerformed
+        // TODO add your handling code here:
+        FrmRelatorio objeto = new FrmRelatorio();
+        objeto.setVisible(true);
+    }//GEN-LAST:event_jMenuItemRelatorioActionPerformed
 
     /**
      * @param args the command line arguments

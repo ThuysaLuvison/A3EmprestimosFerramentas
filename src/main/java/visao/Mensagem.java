@@ -1,4 +1,4 @@
-package view;
+package visao;
 
 /**
  * Classe de exceção personalizada para mensagens específicas.
