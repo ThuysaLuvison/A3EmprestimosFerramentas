@@ -48,6 +48,8 @@ protegendo informações pessoais e financeiras dos usuários.
 - Abaixo o script para a criação do banco de dados e da tabela
 
 [Script BD](https://github.com/ThuysaLuvison/A3EmprestimosFerramentas/blob/master/banco.sql)
+- Usuario: root
+- Senha: Unisul@1520
 
 ## Criadores
 - Bruno Hudson Siebert Costa
