@@ -9,26 +9,27 @@ import modelo.Amigo;
 
 /**
  * Classe para a interface gráfica de cadastro de amigos.
- * 
- * Classe responsável por permitir o cadastro, alteração, exclusão e visualização de amigos.
- * 
+ *
+ * Classe responsável por permitir o cadastro, alteração, exclusão e
+ * visualização de amigos.
+ *
  * @author joaopedrofariasdasilva
  */
 public class FrmCadastroAmigos extends javax.swing.JFrame {
- 
+
     /**
      * Objeto amigo para operações de cadastro.
      */
-    private Amigo objetoamigo; 
-    
+    private Amigo objetoamigo;
+
     /**
      * Conecção com o baco de dados.
      */
     private Connection conn;
-    
+
     /**
      * Construtor da classe FrmCadastroAmigos.
-     * 
+     *
      * Inicializa os componentes da interface e carrega a tabela de amigos.
      */
     public FrmCadastroAmigos() {
@@ -36,16 +37,17 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
         /**
          * Carrega objeto vazio de ferramenta.
          */
-        this.objetoamigo = new Amigo(); 
+        this.objetoamigo = new Amigo();
         /**
          * Carrega os dados da tabela.
          */
-        this.carregaTabela(); 
+        this.carregaTabela();
     }
 
     /**
-     * Método gerado automaticamente pelo Form Editor para inicializar os componentes.
-     * AVISO: Não modifique este código. O conteúdo deste método é sempre regenerado pelo Form Editor.
+     * Método gerado automaticamente pelo Form Editor para inicializar os
+     * componentes. AVISO: Não modifique este código. O conteúdo deste método é
+     * sempre regenerado pelo Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -182,6 +184,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
 
     /**
      * Método para cadastrar um novo amigo.
+     *
      * @param evt - Evento associado ao botão de cadastro.
      */
     private void b_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cadastrarActionPerformed
@@ -235,7 +238,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
     private void b_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_alterarActionPerformed
         // TODO add your handling code here:
         try {
-            
+
             /**
              * Recebendo a validando dados da interface gráfica.
              */
@@ -265,7 +268,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
              * Envia os dados para a ferramenta processar.
              */
             if (this.objetoamigo.updateAmigoBD(id, nome, telefone)) {
-                
+
                 /**
                  * Limpa os campos.
                  */
@@ -304,7 +307,8 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
             }
 
             /**
-             * Retorna 0 -> primeiro botão | 1 -> segundo botão | 2 -> terceiro botão.
+             * Retorna 0 -> primeiro botão | 1 -> segundo botão | 2 -> terceiro
+             * botão.
              */
             int respostaUsuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja apagar este amigo ?");
 
@@ -325,7 +329,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
             /**
              * Atualiza a tabela.
              */
-                    
+
             System.out.println(this.objetoamigo.getMinhaLista().toString());
         } catch (Mensagem erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
@@ -347,7 +351,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
             this.JTFTelefone.setText(telefone);
         }
     }//GEN-LAST:event_JTableAmigosMouseClicked
-    
+
     public void carregaTabela() {
         DefaultTableModel modelo = (DefaultTableModel) this.JTableAmigos.getModel();
         /**
