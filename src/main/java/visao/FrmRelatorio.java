@@ -1,23 +1,24 @@
 package visao;
 
 /**
- * Classe responsável por exibir a interface de relatórios da aplicação.
- * Permite ao usuário visualizar diferentes tipos de relatórios.
- * A interface é composta por opções para visualização de relatórios específicos e um botão para cancelar e fechar a janela.
- * 
+ * Classe responsável por exibir a interface de relatórios da aplicação. Permite
+ * ao usuário visualizar diferentes tipos de relatórios. A interface é composta
+ * por opções para visualização de relatórios específicos e um botão para
+ * cancelar e fechar a janela.
+ *
  * @author Thuysa
  */
 public class FrmRelatorio extends javax.swing.JFrame {
 
-     /**
-     * Construtor padrão da classe FrmRelatorio.
-     * Inicializa os componentes da interface gráfica.
+    /**
+     * Construtor padrão da classe FrmRelatorio. Inicializa os componentes da
+     * interface gráfica.
      */
     public FrmRelatorio() {
         initComponents();
     }
 
-     /**
+    /**
      * Este método é chamado a partir do construtor para inicializar o
      * formulário. AVISO: Não modifique este código. O conteúdo deste método é
      * sempre regenerado pelo editor de formulários.
@@ -60,20 +61,22 @@ public class FrmRelatorio extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 /**
- * Método que fecha a janela de relatórios ao clicar no botão "Cancelar".
- * @param evt - O evento de clique do botão "Cancelar".
- */
+     * Método que fecha a janela de relatórios ao clicar no botão "Cancelar".
+     *
+     * @param evt - O evento de clique do botão "Cancelar".
+     */
     private void b_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cancelarActionPerformed
-        
+
         this.dispose();
     }//GEN-LAST:event_b_cancelarActionPerformed
 
     /**
      * Método principal que cria e exibe a janela de relatórios.
+     *
      * @param args - Argumentos da linha de comando.
      */
     public static void main(String args[]) {
-       
+
         /**
          * Defina a aparência do Nimbus.
          */
@@ -99,8 +102,7 @@ public class FrmRelatorio extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        
-         /**
+        /**
          * Cria e exibe o formulário.
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -116,6 +118,6 @@ public class FrmRelatorio extends javax.swing.JFrame {
     private javax.swing.JButton b_cancelar;
     // End of variables declaration//GEN-END:variables
 /**
- * Fim de declaração de variáveis.
- */
+     * Fim de declaração de variáveis.
+     */
 }
