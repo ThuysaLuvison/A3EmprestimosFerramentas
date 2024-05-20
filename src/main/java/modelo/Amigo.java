@@ -3,6 +3,13 @@ package modelo;
 import dao.AmigoDAO;
 import java.util.ArrayList;
 
+/**
+ *  Classe que representa um amigo com ID, nome e telefone.
+ * 
+ *  Fornece métodos para manipulação de objetos amigo e operações no banco de dados.
+ * 
+ * @author joaopedrofariasdasilva
+ */
 public class Amigo {
 
     /**
@@ -111,7 +118,7 @@ public class Amigo {
     /**
      * Exclui o amigo do banco de dados com o ID especificado.
      * @param id - Id do amigo a ser excluído do banco de dados.
-     * @return true se a operação for bem-sucedida, false caso contrário.
+     * @return - True se a operação for bem-sucedida, false caso contrário.
      */
     public boolean deleteAmigoBD(int id) {
         dao.deleteAmigoBD(id);
