@@ -26,6 +26,6 @@ DROP TABLE IF EXISTS tb_amigos;
 CREATE TABLE tb_amigos (
 id INTEGER NOT NULL,
 nome VARCHAR(100),
-telefone VARCHAR(50),
+telefone VARCHAR(15),
 PRIMARY KEY(id)
 );
