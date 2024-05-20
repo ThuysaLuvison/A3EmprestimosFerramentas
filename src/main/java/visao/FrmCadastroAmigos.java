@@ -178,7 +178,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void b_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cancelarActionPerformed
-        // TODO add your handling code here:
+
         this.dispose();
     }//GEN-LAST:event_b_cancelarActionPerformed
 
@@ -188,7 +188,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
      * @param evt - Evento associado ao botão de cadastro.
      */
     private void b_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cadastrarActionPerformed
-        // TODO add your handling code here:
+
         try {
             /**
              * Recebendo e validando dados da interface gráfica.
@@ -236,7 +236,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
     }//GEN-LAST:event_b_cadastrarActionPerformed
 
     private void b_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_alterarActionPerformed
-        // TODO add your handling code here:
+
         try {
 
             /**
@@ -294,7 +294,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
     }//GEN-LAST:event_b_alterarActionPerformed
 
     private void b_apagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_apagarActionPerformed
-        // TODO add your handling code here:
+
         try {
             /**
              * Validando dados da interface gráfica.
@@ -312,7 +312,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
              */
             int respostaUsuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja apagar este amigo ?");
 
-            if (respostaUsuario == 0) {// clicou em SIM
+            if (respostaUsuario == 0) {
 
                 /**
                  * Envia os dados para o Ferramneta processar.
@@ -342,7 +342,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
     }//GEN-LAST:event_b_apagarActionPerformed
 
     private void JTableAmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableAmigosMouseClicked
-        // TODO add your handling code here:
+
         if (this.JTableAmigos.getSelectedRow() != -1) {
             String nome = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 1).toString();
             String telefone = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 2).toString();
