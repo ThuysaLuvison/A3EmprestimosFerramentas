@@ -208,8 +208,17 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
                 telefone = (this.JTFTelefone.getText());
             }
 
-            System.out.println(nome);
-            System.out.println(telefone);
+            if (this.JTFTelefone.getText().length() < 11) {
+                throw new Mensagem("Telefone deve conter ao menos 11 caracteres.");
+            } else {
+                telefone = this.JTFTelefone.getText();
+
+                String ddd = telefone.substring(0, 2);
+                String primeirosDigitos = telefone.substring(2, 7);
+                String ultimosDigitos = telefone.substring(7, 11);
+
+                telefone = "(" + ddd + ") " + primeirosDigitos + "-" + ultimosDigitos;
+            }
 
             /**
              * Envia os dados para o controlador cadastrar.
@@ -342,11 +351,16 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
     }//GEN-LAST:event_b_apagarActionPerformed
 
     private void JTableAmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableAmigosMouseClicked
-
         if (this.JTableAmigos.getSelectedRow() != -1) {
             String nome = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 1).toString();
             String telefone = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 2).toString();
-
+            this.JTFNome.setText(nome);
+            this.JTFTelefone.setText(telefone);
+        }
+        if (this.JTableAmigos.getSelectedRow() != -1) {
+            String nome = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 1).toString();
+            String telefone = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 2).toString();
+            telefone = telefone.replaceAll("[^0-9]", "");
             this.JTFNome.setText(nome);
             this.JTFTelefone.setText(telefone);
         }
@@ -371,10 +385,12 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
     }
 
     /**
-     * @param args the command line arguments
+     * @param args Argumentos da linha de comando.
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /**
+         * Defina a aparência do Nimbus.
+         */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -397,7 +413,9 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /**
+         * Cria e exibe o formulário
+         */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmCadastroAmigos().setVisible(true);
