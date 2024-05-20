@@ -78,6 +78,7 @@ public class FrmCadastroFerramentas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ferramentas");
+        setPreferredSize(new java.awt.Dimension(740, 430));
         setResizable(false);
 
         jLabel1.setText("Ferramenta:");
@@ -198,7 +199,8 @@ public class FrmCadastroFerramentas extends javax.swing.JFrame {
                 .addContainerGap(87, Short.MAX_VALUE))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(753, 438));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
      /**
      * Método responsável por cancelar a operação e fechar a janela.

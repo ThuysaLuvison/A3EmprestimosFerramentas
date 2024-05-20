@@ -66,6 +66,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Amigos");
 
         JTableAmigos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -174,7 +175,8 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
                 .addContainerGap(87, Short.MAX_VALUE))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(756, 438));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void b_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cancelarActionPerformed
