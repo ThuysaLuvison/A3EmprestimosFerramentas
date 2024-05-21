@@ -86,8 +86,10 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(JTableAmigos);
 
+        jLabel1.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         jLabel1.setText("Nome:");
 
+        jLabel2.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         jLabel2.setText("Telefone:");
 
         b_cadastrar.setText("Cadastrar");
