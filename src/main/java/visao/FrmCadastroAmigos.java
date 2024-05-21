@@ -23,7 +23,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
     private Amigo objetoamigo;
 
     /**
-     * Conecção com o baco de dados.
+     * Conecção com o banco de dados.
      */
     private Connection conn;
 
@@ -195,7 +195,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
 
         try {
             /**
-             * Recebendo e validando dados da interface gráfica.
+             * Recebe e valida dados da interface gráfica.
              */
             String nome = "";
             String telefone = "";
@@ -253,7 +253,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
         try {
 
             /**
-             * Recebendo a validando dados da interface gráfica.
+             * Recebe e valida dados da interface gráfica.
              */
             int id = 0;
             String nome = "";
@@ -332,7 +332,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
                  */
                 if (this.objetoamigo.deleteAmigoBD(id)) {
                     /**
-                     * Limpa os campos
+                     * Limpa os campos.
                      */
                     this.JTFNome.setText("");
                     this.JTFTelefone.setText("");
@@ -418,7 +418,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
         //</editor-fold>
 
         /**
-         * Cria e exibe o formulário
+         * Cria e exibe o formulário.
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
