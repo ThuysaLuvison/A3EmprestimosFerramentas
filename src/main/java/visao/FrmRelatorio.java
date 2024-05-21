@@ -34,7 +34,7 @@ public class FrmRelatorio extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        JTextAreaMaisEmprestimos = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,9 +68,9 @@ public class FrmRelatorio extends javax.swing.JFrame {
 
         jLabel2.setText("Filtar empréstimos:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        JTextAreaMaisEmprestimos.setColumns(20);
+        JTextAreaMaisEmprestimos.setRows(5);
+        jScrollPane2.setViewportView(JTextAreaMaisEmprestimos);
 
         jLabel3.setText("Pessoa que fez mais empréstimos:");
 
@@ -184,13 +184,13 @@ public class FrmRelatorio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> JComboBoxFiltro;
     private javax.swing.JTable JTableRelatorio;
+    private javax.swing.JTextArea JTextAreaMaisEmprestimos;
     private javax.swing.JButton b_cancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 /**
      * Fim de declaração de variáveis.
