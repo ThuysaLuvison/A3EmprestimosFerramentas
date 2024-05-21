@@ -24,7 +24,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
      * formulário. AVISO: Não modifique este código. O conteúdo deste método é
      * sempre regenerado pelo editor de formulários.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")  
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -69,6 +69,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
@@ -229,14 +234,30 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         FrmRelatorio objeto = new FrmRelatorio();
         objeto.setVisible(true);
     }//GEN-LAST:event_jMenuItemRelatorioActionPerformed
-
+/**
+ * Método chamado quando há uma ação no JComboBox2.
+ *
+ * @param evt - O evento de clique do JComboBox2.
+ */
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jComboBox2ActionPerformed
-
+/**
+ * Método chamado quando há uma ação no botão "Emprestar".
+ *
+ * @param evt - O evento de clique do botão "Emprestar".
+ */
     private void b_emprestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_emprestarActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_b_emprestarActionPerformed
+/**
+ * Método chamado quando há uma ação no JComboBox1.
+ *
+ * @param evt - O evento de clique do JComboBox1.
+ */
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+       
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args - Argumentos da linha de comando.
