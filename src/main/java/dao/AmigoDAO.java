@@ -1,5 +1,6 @@
 package dao;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,19 +10,45 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import modelo.Amigo;
 
+/**
+ * Classe responsável pelo acesso aos dados dos amigos no banco de dados.
+ * 
+ * @author joaopedrofariasdasilva
+ */
 public class AmigoDAO {
 
+    /**
+     * Lista de amigos carregados do banco de dados.
+     */
     public ArrayList<Amigo> minhaLista = new ArrayList<>();
     
+    
+    /**
+     * Objeto responsável pela conexão com o banco de dados.
+     */
     private ConexaoDataBaseDAO db;
 
+    /**
+     * Construtor da classe AmigoDAO.
+     * 
+     * Inicializa a conexão com o banco de dados.
+     */
     public AmigoDAO() {
         this.db = new ConexaoDataBaseDAO();
     }
 
+    /**
+     * Retorna a lista de amigos do banco de dados.
+     * 
+     * @return - ArrayList contendo objetos Amigo recuperados do banco de dados.
+     * 
+     */
     public ArrayList<Amigo> getMinhaLista() {
 
-        minhaLista.clear(); // Limpa nosso ArrayList
+        /**
+         * Limpa nosso ArrayList.
+         */
+        minhaLista.clear(); 
 
         try {
             Statement stmt = db.getConexao().createStatement();
@@ -44,10 +71,21 @@ public class AmigoDAO {
         return minhaLista;
     }
 
+    /**
+     * Define a lista de amigos.
+     * 
+     * @param minhaLista 
+     */
     public void setMinhaLista(ArrayList<Amigo> minhaLista) {
         this.minhaLista = minhaLista;
     }
 
+    
+    /**
+     * Retorna  o maior ID presente na tabela de amigos.
+     * 
+     * @return - Inteiro representando o maior ID.
+     */
     public int maiorID() {
         int maiorID = 0;
         try {
@@ -62,7 +100,12 @@ public class AmigoDAO {
         return maiorID;
     }
 
-    // Cadastra novo amigo
+    /**
+     * Cadatra novo amigo no banco de dados.
+     * 
+     * @param objeto - Objeto Amigo a ser inserido.
+     * @return - Boolean indicando se a operação foi bem - sucedida
+     */        
     public boolean insertAmigoBD(Amigo objeto) {
         String sql = "INSERT INTO tb_amigos(id,nome,telefone) VALUES(?,?,?)";
         try {
@@ -82,6 +125,13 @@ public class AmigoDAO {
         }
     }
 
+    
+    /**
+     * Exclui um amigo do banco de dados com base no ID.
+     * 
+     * @param id - inteiro representando o ID do amigo a ser excluído.
+     * @return - Boolean indicando se a operação foi bem sucedida.
+     */
     public boolean deleteAmigoBD(int id) {
         try {
             Statement stmt = db.getConexao().createStatement();
@@ -94,6 +144,12 @@ public class AmigoDAO {
         return true;
     }
 
+    /**
+     * Atualiza os dados de um amigo no banco de dados.
+     * 
+     * @param objeto - Objeto Amigo com os dados atualizados.
+     * @return - Boolean indicando se a operação foi bem-sucedida.
+     */
     public boolean updateAmigoBD(Amigo objeto) {
 
         String sql = "UPDATE tb_amigos set nome = ? ,telefone = ? WHERE id = ?";
@@ -116,6 +172,12 @@ public class AmigoDAO {
         }
     }
 
+    /**
+     * Carrega um amigo do banco de dados com base no ID.
+     * 
+     * @param id - Inteiro representando o ID do amigo a ser carregado.
+     * @return - Objeto Amigo com os dados do amigo carregado.
+     */
     public Amigo carregaAmigo(int id) {
         Amigo objeto = new Amigo();
         objeto.setId(id);
