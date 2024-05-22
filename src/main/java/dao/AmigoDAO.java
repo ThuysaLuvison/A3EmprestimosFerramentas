@@ -1,6 +1,5 @@
 package dao;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,7 +11,7 @@ import modelo.Amigo;
 
 /**
  * Classe responsável pelo acesso aos dados dos amigos no banco de dados.
- * 
+ *
  * @author joaopedrofariasdasilva
  */
 public class AmigoDAO {
@@ -21,8 +20,7 @@ public class AmigoDAO {
      * Lista de amigos carregados do banco de dados.
      */
     public ArrayList<Amigo> minhaLista = new ArrayList<>();
-    
-    
+
     /**
      * Objeto responsável pela conexão com o banco de dados.
      */
@@ -30,7 +28,7 @@ public class AmigoDAO {
 
     /**
      * Construtor da classe AmigoDAO.
-     * 
+     *
      * Inicializa a conexão com o banco de dados.
      */
     public AmigoDAO() {
@@ -39,16 +37,16 @@ public class AmigoDAO {
 
     /**
      * Retorna a lista de amigos do banco de dados.
-     * 
+     *
      * @return - ArrayList contendo objetos Amigo recuperados do banco de dados.
-     * 
+     *
      */
     public ArrayList<Amigo> getMinhaLista() {
 
         /**
          * Limpa nosso ArrayList.
          */
-        minhaLista.clear(); 
+        minhaLista.clear();
 
         try {
             Statement stmt = db.getConexao().createStatement();
@@ -73,17 +71,16 @@ public class AmigoDAO {
 
     /**
      * Define a lista de amigos.
-     * 
-     * @param minhaLista 
+     *
+     * @param minhaLista
      */
     public void setMinhaLista(ArrayList<Amigo> minhaLista) {
         this.minhaLista = minhaLista;
     }
 
-    
     /**
-     * Retorna  o maior ID presente na tabela de amigos.
-     * 
+     * Retorna o maior ID presente na tabela de amigos.
+     *
      * @return - Inteiro representando o maior ID.
      */
     public int maiorID() {
@@ -102,10 +99,10 @@ public class AmigoDAO {
 
     /**
      * Cadatra novo amigo no banco de dados.
-     * 
+     *
      * @param objeto - Objeto Amigo a ser inserido.
      * @return - Boolean indicando se a operação foi bem - sucedida
-     */        
+     */
     public boolean insertAmigoBD(Amigo objeto) {
         String sql = "INSERT INTO tb_amigos(id,nome,telefone) VALUES(?,?,?)";
         try {
@@ -125,10 +122,9 @@ public class AmigoDAO {
         }
     }
 
-    
     /**
      * Exclui um amigo do banco de dados com base no ID.
-     * 
+     *
      * @param id - inteiro representando o ID do amigo a ser excluído.
      * @return - Boolean indicando se a operação foi bem sucedida.
      */
@@ -146,7 +142,7 @@ public class AmigoDAO {
 
     /**
      * Atualiza os dados de um amigo no banco de dados.
-     * 
+     *
      * @param objeto - Objeto Amigo com os dados atualizados.
      * @return - Boolean indicando se a operação foi bem-sucedida.
      */
@@ -174,7 +170,7 @@ public class AmigoDAO {
 
     /**
      * Carrega um amigo do banco de dados com base no ID.
-     * 
+     *
      * @param id - Inteiro representando o ID do amigo a ser carregado.
      * @return - Objeto Amigo com os dados do amigo carregado.
      */
