@@ -11,6 +11,7 @@ import modelo.Amigo;
 
 /**
  * Classe responsável pelo acesso aos dados dos amigos no banco de dados.
+ * Fornece dados para carregar, inserir, atualizar e excluir amigos.
  *
  * @author joaopedrofariasdasilva
  */
@@ -71,6 +72,7 @@ public class AmigoDAO {
 
     /**
      * Define a lista de amigos.
+     * Substitui a lista atual de amigos por uma nova lista fornecida como parâmetro.
      *
      * @param minhaLista
      */
@@ -98,10 +100,10 @@ public class AmigoDAO {
     }
 
     /**
-     * Cadatra novo amigo no banco de dados.
+     * Cadastra novo amigo no banco de dados.
      *
      * @param objeto - Objeto Amigo a ser inserido.
-     * @return - Boolean indicando se a operação foi bem - sucedida
+     * @return - Boolean indicando se a operação foi bem-sucedida.
      */
     public boolean insertAmigoBD(Amigo objeto) {
         String sql = "INSERT INTO tb_amigos(id,nome,telefone) VALUES(?,?,?)";
@@ -126,7 +128,7 @@ public class AmigoDAO {
      * Exclui um amigo do banco de dados com base no ID.
      *
      * @param id - inteiro representando o ID do amigo a ser excluído.
-     * @return - Boolean indicando se a operação foi bem sucedida.
+     * @return - Boolean indicando se a operação foi bem-sucedida.
      */
     public boolean deleteAmigoBD(int id) {
         try {
@@ -171,7 +173,7 @@ public class AmigoDAO {
     /**
      * Carrega um amigo do banco de dados com base no ID.
      *
-     * @param id - Inteiro representando o ID do amigo a ser carregado.
+     * @param id - Representa o ID do amigo a ser carregado.
      * @return - Objeto Amigo com os dados do amigo carregado.
      */
     public Amigo carregaAmigo(int id) {
