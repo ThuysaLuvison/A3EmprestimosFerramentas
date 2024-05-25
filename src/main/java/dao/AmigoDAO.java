@@ -71,8 +71,8 @@ public class AmigoDAO {
     }
 
     /**
-     * Define a lista de amigos.
-     * Substitui a lista atual de amigos por uma nova lista fornecida como parâmetro.
+     * Define a lista de amigos. Substitui a lista atual de amigos por uma nova
+     * lista fornecida como parâmetro.
      *
      * @param minhaLista
      */
