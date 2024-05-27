@@ -21,6 +21,7 @@ public class FerramentaDAO {
      * Lista de ferramentas.
      */
     public ArrayList<Ferramenta> minhaLista = new ArrayList<>();
+    public ArrayList<Ferramenta> ListaFerramentasDisponiveis = new ArrayList<>();
 
     private ConexaoDataBaseDAO db;
 
@@ -192,5 +193,30 @@ public class FerramentaDAO {
             System.out.println("Erro:" + erro);
         }
         return objeto;
+    }
+
+    public ArrayList<Ferramenta> getFerramentasDisponiveis() {
+
+        ListaFerramentasDisponiveis.clear();
+
+        try {
+            Statement stmt = db.getConexao().createStatement();
+            ResultSet res = stmt.executeQuery("SELECT * FROM tb_ferramentas WHERE id_emprestimo is null");
+            while (res.next()) {
+
+                int id = res.getInt("id_ferramenta");
+                String nome = res.getString("nome");
+                String marca = res.getString("marca");
+
+                Ferramenta objeto = new Ferramenta();
+
+                ListaFerramentasDisponiveis.add(objeto);
+            }
+            stmt.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Erro:" + ex);
+        }
+        return ListaFerramentasDisponiveis;
     }
 }
