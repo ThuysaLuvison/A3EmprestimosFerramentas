@@ -1,5 +1,23 @@
 package visao;
 
+import com.mysql.cj.util.Util;
+import dao.ConexaoDataBaseDAO;
+import dao.EmprestimoDAO;
+import dao.FerramentaDAO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelo.Amigo;
+import modelo.Emprestimo;
+import modelo.Ferramenta;
+import modelo.Data;
+
 /**
  * Classe responsável por fornecer o menu principal da aplicação. Permite
  * acessar diferentes funcionalidades, como cadastro de ferramentas, cadastro de
@@ -11,12 +29,63 @@ package visao;
  */
 public class FrmMenuPrincipal extends javax.swing.JFrame {
 
+    private FerramentaDAO dao = new FerramentaDAO();
+    private EmprestimoDAO daoEmp = new EmprestimoDAO();
+    private boolean countData = true;
+    private Emprestimo objEmprestimo;
+    private ConexaoDataBaseDAO connect;
+    public ArrayList<String> FerSelect = new ArrayList<>();
+    private ConexaoDataBaseDAO db;
+    private Ferramenta objetoferramenta;
+
     /**
      * Cria uma nova instância do formulário FrmMenuPrincipal. Inicializa os
      * componentes da interface gráfica.
      */
     public FrmMenuPrincipal() {
         initComponents();
+        preencherComboBox();
+        this.objEmprestimo = new Emprestimo();
+        connect = new ConexaoDataBaseDAO();
+        String data = Data.dataAtual().toString();
+        inputDateEmprestimo.setText(data);
+        this.carregaTabelaFerramentas();
+    }
+
+    private void preencherComboBox() {
+        try {
+            String query = "SELECT nome FROM tb_amigos";
+            PreparedStatement statement = connect.getConexao().prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String nome = resultSet.getString("nome");
+                JComboBoxAmigo.addItem(nome);
+            }
+            String queryFerramentas = "SELECT nome FROM tb_ferramentas";
+            PreparedStatement statementFerramentas = connect.getConexao().prepareStatement(queryFerramentas);
+            ResultSet resultSetFerramentas = statementFerramentas.executeQuery();
+
+            while (resultSetFerramentas.next()) {
+                String nomeFerramenta = resultSetFerramentas.getString("nome");
+                JComboBoxFerramenta.addItem(nomeFerramenta);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro:" + ex);
+            // Lidar com exceções adequadamente
+        }
+    }
+
+    public void carregaTabelaFerramentas() {
+        DefaultTableModel modelo = (DefaultTableModel) JTableEmprestimo.getModel(); // Corrigido para tabelaFerramentas
+        modelo.setNumRows(0);
+        for (Ferramenta a : dao.getFerramentasDisponiveis()) {
+            modelo.addRow(new Object[]{
+                a.getId(),
+                a.getFerramenta()
+            });
+        }
     }
 
     /**
@@ -24,19 +93,25 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
      * formulário. AVISO: Não modifique este código. O conteúdo deste método é
      * sempre regenerado pelo editor de formulários.
      */
-    @SuppressWarnings("unchecked")  
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jMenuItem4 = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        JTableEmprestimo = new javax.swing.JTable();
+        JComboBoxAmigo = new javax.swing.JComboBox<>();
+        JComboBoxFerramenta = new javax.swing.JComboBox<>();
         b_emprestar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        inputDateEmprestimo = new javax.swing.JLabel();
+        mensagemEmprestimo = new javax.swing.JFormattedTextField();
+        b_concluir = new javax.swing.JButton();
+        JTextDevolucao = new javax.swing.JFormattedTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemFerramentas = new javax.swing.JMenuItem();
@@ -55,30 +130,28 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tw Cen MT", 1, 24)); // NOI18N
         jLabel1.setText("EMPRÉSTIMOS");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        JTableEmprestimo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Ferramenta", "Data de empréstimo", "Data de devolução"
+                "Nome", "Ferramenta", "Empréstimo", "Devolução"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(JTableEmprestimo);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        JComboBoxAmigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                JComboBoxAmigoActionPerformed(evt);
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        JComboBoxFerramenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                JComboBoxFerramentaActionPerformed(evt);
             }
         });
 
@@ -94,6 +167,20 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         jLabel3.setText("Ferramenta");
+
+        jLabel4.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        jLabel4.setText("Data de empréstimo");
+
+        jLabel5.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        jLabel5.setText("Data de devolução");
+
+        b_concluir.setText("Concluir");
+
+        JTextDevolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTextDevolucaoActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Opções");
 
@@ -144,19 +231,32 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 649, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(49, 49, 49)
+                                    .addComponent(JComboBoxAmigo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(38, 38, 38)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(JComboBoxFerramenta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(27, 27, 27)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(b_emprestar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(b_concluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(38, 38, 38)
-                                        .addComponent(b_emprestar))))))
+                                        .addGap(28, 28, 28)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(inputDateEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(18, 18, Short.MAX_VALUE)
+                                        .addComponent(jLabel5))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(JTextDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(mensagemEmprestimo)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(280, 280, 280)
                         .addComponent(jLabel1)))
@@ -172,15 +272,23 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(JComboBoxAmigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(mensagemEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(b_concluir))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(b_emprestar))))
-                .addGap(29, 29, 29)
+                            .addComponent(JComboBoxFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(b_emprestar)
+                            .addComponent(inputDateEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JTextDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(121, 121, 121))
         );
@@ -234,30 +342,67 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         FrmRelatorio objeto = new FrmRelatorio();
         objeto.setVisible(true);
     }//GEN-LAST:event_jMenuItemRelatorioActionPerformed
-/**
- * Método chamado quando há uma ação no JComboBox2.
- *
- * @param evt - O evento de clique do JComboBox2.
- */
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        
-    }//GEN-LAST:event_jComboBox2ActionPerformed
-/**
- * Método chamado quando há uma ação no botão "Emprestar".
- *
- * @param evt - O evento de clique do botão "Emprestar".
- */
+    /**
+     * Método chamado quando há uma ação no JComboBox2.
+     *
+     * @param evt - O evento de clique do JComboBox2.
+     */
+    private void JComboBoxFerramentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBoxFerramentaActionPerformed
+
+    }//GEN-LAST:event_JComboBoxFerramentaActionPerformed
+    /**
+     * Método chamado quando há uma ação no botão "Emprestar".
+     *
+     * @param evt - O evento de clique do botão "Emprestar".
+     */
     private void b_emprestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_emprestarActionPerformed
-       
+        b_emprestar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String infoAmigos = (String) JComboBoxAmigo.getSelectedItem();
+                String infoFerramentas = (String) JComboBoxFerramenta.getSelectedItem();
+                String dateEmprestimo = inputDateEmprestimo.getText();
+                String dateDevolucao = JTextDevolucao.getText();
+
+                DefaultTableModel model = (DefaultTableModel) JTableEmprestimo.getModel();
+                model.addRow(new Object[]{infoAmigos, infoFerramentas, dateEmprestimo, dateDevolucao});
+
+                try {
+                    String query = "INSERT INTO tb_emprestimo (colunaAmigos, colunaFerramentas, colunaDateEmprestimo, colunaDateDevolucao) VALUES (?, ?, ?, ?)";
+                    PreparedStatement pstmt = db.prepareStatement(query);
+                    pstmt.setString(1, infoAmigos);
+                    pstmt.setString(2, infoFerramentas);
+                    pstmt.setString(3, dateEmprestimo);
+                    pstmt.setString(4, dateDevolucao);
+                    pstmt.executeUpdate();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
     }//GEN-LAST:event_b_emprestarActionPerformed
-/**
- * Método chamado quando há uma ação no JComboBox1.
- *
- * @param evt - O evento de clique do JComboBox1.
- */
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-       
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    /**
+     * Método chamado quando há uma ação no JComboBox1.
+     *
+     * @param evt - O evento de clique do JComboBox1.
+     */
+    private void JComboBoxAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBoxAmigoActionPerformed
+        // TODO add your handling code here:
+        Object selectedAmigo = JComboBoxAmigo.getSelectedItem();
+        Object selectedFerramenta = JComboBoxFerramenta.getSelectedItem();
+        String inputDate = this.mensagemEmprestimo.getText();
+
+        if (selectedAmigo != null && selectedFerramenta != null && !inputDate.isEmpty()) {
+            String amigo = selectedAmigo.toString();
+            String ferramenta = selectedFerramenta.toString();
+            mensagemEmprestimo.setText(amigo + " irá pegar " + ferramenta + " emprestado até " + inputDate + ", certo?");
+        } else {
+            mensagemEmprestimo.setText("Por favor, selecione um amigo, uma ferramenta e insira a data de devolução.");
+        }
+    }//GEN-LAST:event_JComboBoxAmigoActionPerformed
+
+    private void JTextDevolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTextDevolucaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTextDevolucaoActionPerformed
 
     /**
      * @param args - Argumentos da linha de comando.
@@ -301,12 +446,18 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
      * Declaração de variáveis - não modificar.
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> JComboBoxAmigo;
+    private javax.swing.JComboBox<String> JComboBoxFerramenta;
+    private javax.swing.JTable JTableEmprestimo;
+    private javax.swing.JFormattedTextField JTextDevolucao;
+    private javax.swing.JButton b_concluir;
     private javax.swing.JButton b_emprestar;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel inputDateEmprestimo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -316,7 +467,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemRelatorio;
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JFormattedTextField mensagemEmprestimo;
     // End of variables declaration//GEN-END:variables
     /**
      * Fim da declaração de variáveis.
