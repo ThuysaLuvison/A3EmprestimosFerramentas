@@ -174,10 +174,10 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(b_cancelar))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(756, 438));
+        setSize(new java.awt.Dimension(756, 439));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

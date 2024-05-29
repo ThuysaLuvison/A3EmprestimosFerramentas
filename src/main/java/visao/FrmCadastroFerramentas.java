@@ -78,13 +78,15 @@ public class FrmCadastroFerramentas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ferramentas");
-        setPreferredSize(new java.awt.Dimension(740, 430));
         setResizable(false);
 
+        jLabel1.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         jLabel1.setText("Ferramenta:");
 
+        jLabel2.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         jLabel2.setText("Marca:");
 
+        jLabel3.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         jLabel3.setText("Preço");
 
         b_cadastrar.setText("Cadastrar");
@@ -196,10 +198,10 @@ public class FrmCadastroFerramentas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(b_cancelar))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(753, 438));
+        setSize(new java.awt.Dimension(756, 439));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
      /**
@@ -278,15 +280,15 @@ public class FrmCadastroFerramentas extends javax.swing.JFrame {
          */
         model.setRowCount(0);
 
-        String query = "SELECT nome, marca, preco FROM ferramentas";
+        String query = "SELECT ferramenta, marca, preco FROM ferramentas";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                String nome = resultSet.getString("nome");
+                String ferramenta = resultSet.getString("ferramenta");
                 String marca = resultSet.getString("marca");
                 double preco = resultSet.getDouble("preco");
-                Object[] rowData = {nome, marca, preco};
+                Object[] rowData = {ferramenta, marca, preco};
                 model.addRow(rowData);
             }
         } catch (SQLException e) {
