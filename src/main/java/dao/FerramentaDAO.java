@@ -205,7 +205,7 @@ public class FerramentaDAO {
             while (res.next()) {
 
                 int id = res.getInt("id_ferramenta");
-                String nome = res.getString("nome");
+                String ferramenta = res.getString("ferramenta");
                 String marca = res.getString("marca");
 
                 Ferramenta objeto = new Ferramenta();
