@@ -63,8 +63,8 @@ protegendo informações pessoais e financeiras dos usuários.
 - Senha: Unisul@1520
 
 ## Criadores
-- Bruno Hudson Siebert Costa
-- João Pedro Farias da Silva
-- Thuysa Monique Luvison da Rosa
-- Tulio Anesio da Rosa
+- Bruno Hudson Siebert Costa (BHSC1, 1072410978)
+- João Pedro Farias da Silva (jumplyon, 1072413105)
+- Thuysa Monique Luvison da Rosa (thuys)
+- Tulio Anesio da Rosa (Tulio, tulioanesio, 1072410483)
 
