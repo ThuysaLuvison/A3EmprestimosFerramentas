@@ -62,7 +62,7 @@ protegendo informações pessoais e financeiras dos usuários.
 - Usuario: root
 - Senha: Unisul@1520
 
-## Criadores
+## Desenvolvedores
 - Bruno Hudson Siebert Costa (BHSC1, 1072410978)
 - João Pedro Farias da Silva (jumplyon, 1072413105)
 - Thuysa Monique Luvison da Rosa (thuys)
