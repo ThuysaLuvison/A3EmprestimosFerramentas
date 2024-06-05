@@ -1,7 +1,5 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -201,7 +199,7 @@ public class FerramentaDAO {
 
         try {
             Statement stmt = db.getConexao().createStatement();
-            ResultSet res = stmt.executeQuery("SELECT * FROM tb_ferramentas WHERE id_emprestimo is null");
+            ResultSet res = stmt.executeQuery("SELECT * FROM tb_ferramentas WHERE id is null");
             while (res.next()) {
 
                 int id = res.getInt("id_ferramenta");
