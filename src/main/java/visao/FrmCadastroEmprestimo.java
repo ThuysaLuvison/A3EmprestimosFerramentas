@@ -1,6 +1,5 @@
 package visao;
 
-import com.mysql.cj.util.Util;
 import dao.ConexaoDataBaseDAO;
 import dao.EmprestimoDAO;
 import dao.FerramentaDAO;
@@ -10,10 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.Amigo;
 import modelo.Emprestimo;
 import modelo.Ferramenta;
 import modelo.Data;
@@ -27,7 +23,7 @@ import modelo.Data;
  *
  * @author Thuysa
  */
-public class FrmCadastroEmprestimos extends javax.swing.JFrame {
+public class FrmCadastroEmprestimo extends javax.swing.JFrame {
 
     private FerramentaDAO dao = new FerramentaDAO();
     private EmprestimoDAO daoEmp = new EmprestimoDAO();
@@ -42,7 +38,7 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
      * Cria uma nova instância do formulário FrmMenuPrincipal. Inicializa os
      * componentes da interface gráfica.
      */
-    public FrmCadastroEmprestimos() {
+    public FrmCadastroEmprestimo() {
         initComponents();
         preencherComboBox();
         this.objEmprestimo = new Emprestimo();
@@ -119,7 +115,6 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Empréstimos");
-        setPreferredSize(new java.awt.Dimension(740, 430));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tw Cen MT", 1, 24)); // NOI18N
@@ -366,14 +361,16 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroEmprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadastroEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroEmprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadastroEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroEmprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadastroEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroEmprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadastroEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -382,7 +379,7 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCadastroEmprestimos().setVisible(true);
+                new FrmCadastroEmprestimo().setVisible(true);
             }
         });
     }
