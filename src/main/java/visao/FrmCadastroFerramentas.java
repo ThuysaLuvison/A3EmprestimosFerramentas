@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  * alteração e exclusão de ferramentas. 
  * Também exibe uma tabela com os dados das ferramentas cadastradas. Esta classe utiliza objetos da classe Ferramenta para manipulação dos dados.
  */
-public class FrmCadastroFerramenta extends javax.swing.JFrame {
+public class FrmCadastroFerramentas extends javax.swing.JFrame {
 
     /**
      * Objeto da classe Ferramenta para manipulação dos dados.
@@ -29,7 +29,7 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
      * Construtor da classe FrmCadastroFerramentas. Inicializa os componentes da
      * interface gráfica e o objeto da classe Ferramenta.
      */
-    public FrmCadastroFerramenta() {
+    public FrmCadastroFerramentas() {
         initComponents();
         /**
          * Carrega objeto vazio de Ferramenta.
@@ -201,7 +201,7 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
                 .addContainerGap(57, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(756, 439));
+        setSize(new java.awt.Dimension(757, 439));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
      /**
@@ -224,14 +224,14 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
             /**
              * Recebendo e validando dados da interface gráfica.
              */
-            String ferramenta = "";
+            String nome = "";
             String marca = "";
             double preco = 0.0;
 
             if (this.JTFFerramenta.getText().length() < 2) {
                 throw new Mensagem("Nome deve conter ao menos 2 caracteres.");
             } else {
-                ferramenta = this.JTFFerramenta.getText();
+                nome = this.JTFFerramenta.getText();
             }
 
             if (this.JTFMarca.getText().length() < 2) {
@@ -249,7 +249,7 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
             /**
              * Envia os dados para o Controlador cadastrar.
              */
-            if (this.objetoferramenta.insertFerramentaBD(ferramenta, marca, preco)) {
+            if (this.objetoferramenta.insertFerramentaBD(nome, marca, preco)) {
                 JOptionPane.showMessageDialog(null, "Ferramenta Cadastrada com Sucesso!");
                 /**
                  * Limpa os campos da interface.
@@ -280,15 +280,15 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
          */
         model.setRowCount(0);
 
-        String query = "SELECT ferramenta, marca, preco FROM ferramentas";
+        String query = "SELECT nome, marca, preco FROM ferramentas";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                String ferramenta = resultSet.getString("ferramenta");
+                String nome = resultSet.getString("nome");
                 String marca = resultSet.getString("marca");
                 double preco = resultSet.getDouble("preco");
-                Object[] rowData = {ferramenta, marca, preco};
+                Object[] rowData = {nome, marca, preco};
                 model.addRow(rowData);
             }
         } catch (SQLException e) {
@@ -309,14 +309,14 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
              * Recebendo e validando dados da interface gráfica.
              */
             int id = 0;
-            String ferramenta = "";
+            String nome = "";
             String marca = "";
             double preco = 0.0;
 
             if (this.JTFFerramenta.getText().length() < 2) {
                 throw new Mensagem("Nome deve conter ao menos 2 caracteres.");
             } else {
-                ferramenta = this.JTFFerramenta.getText();
+                nome = this.JTFFerramenta.getText();
             }
 
             if (this.JTFMarca.getText().length() < 2) {
@@ -340,7 +340,7 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
             /**
              * Envia os dados para a ferramenta processar.
              */
-            if (this.objetoferramenta.updateFerramentaBD(id, ferramenta, marca, preco)) {
+            if (this.objetoferramenta.updateFerramentaBD(id, nome, marca, preco)) {
                 /**
                  * limpa os campos.
                  */
@@ -447,14 +447,14 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
             /**
              * Obtém os dados da ferramenta selecionada na tabela.
              */
-            String ferramenta = this.JTableFerramentas.getValueAt(this.JTableFerramentas.getSelectedRow(), 1).toString();
+            String nome = this.JTableFerramentas.getValueAt(this.JTableFerramentas.getSelectedRow(), 1).toString();
             String marca = this.JTableFerramentas.getValueAt(this.JTableFerramentas.getSelectedRow(), 2).toString();
             String preco = this.JTableFerramentas.getValueAt(this.JTableFerramentas.getSelectedRow(), 3).toString();
             /**
              * Preenche os campos de texto na interface gráfica com os dados da
              * ferramenta selecionada.
              */
-            this.JTFFerramenta.setText(ferramenta);
+            this.JTFFerramenta.setText(nome);
             this.JTFMarca.setText(marca);
             this.JTFCusto.setText(preco);
         }
@@ -482,7 +482,7 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
         for (Ferramenta a : minhaLista) {
             modelo.addRow(new Object[]{
                 a.getId(),
-                a.getFerramenta(),
+                a.getNome(),
                 a.getMarca(),
                 a.getPreco(),});
         }
@@ -509,14 +509,20 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadastroFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadastroFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadastroFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmCadastroFerramenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadastroFerramentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -525,7 +531,7 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCadastroFerramenta().setVisible(true);
+                new FrmCadastroFerramentas().setVisible(true);
             }
         });
     }

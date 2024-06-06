@@ -52,7 +52,7 @@ public class AmigoDAO {
             ResultSet res = stmt.executeQuery("SELECT * FROM tb_amigos");
             while (res.next()) {
 
-                int id = res.getInt("id");
+                int id = res.getInt("id_amigo");
                 String nome = res.getString("nome");
                 String telefone = res.getString("telefone");
 
@@ -87,7 +87,7 @@ public class AmigoDAO {
         int maiorID = 0;
         try {
             Statement stmt = db.getConexao().createStatement();
-            ResultSet res = stmt.executeQuery("SELECT MAX(id) id FROM tb_amigos");
+            ResultSet res = stmt.executeQuery("SELECT MAX(id_amigo) id FROM tb_amigos");
             res.next();
             maiorID = res.getInt("id");
             stmt.close();
@@ -104,7 +104,7 @@ public class AmigoDAO {
      * @return - Boolean indicando se a operação foi bem-sucedida.
      */
     public boolean insertAmigoBD(Amigo objeto) {
-        String sql = "INSERT INTO tb_amigos(id,nome,telefone) VALUES(?,?,?)";
+        String sql = "INSERT INTO tb_amigos(id_amigo,nome,telefone) VALUES(?,?,?)";
         try {
             PreparedStatement stmt = db.getConexao().prepareStatement(sql);
 
@@ -131,7 +131,7 @@ public class AmigoDAO {
     public boolean deleteAmigoBD(int id) {
         try {
             Statement stmt = db.getConexao().createStatement();
-            stmt.executeUpdate("DELETE FROM tb_amigos WHERE id = " + id);
+            stmt.executeUpdate("DELETE FROM tb_amigos WHERE id_amigo = " + id);
             stmt.close();
 
         } catch (SQLException erro) {
@@ -148,7 +148,7 @@ public class AmigoDAO {
      */
     public boolean updateAmigoBD(Amigo objeto) {
 
-        String sql = "UPDATE tb_amigos set nome = ? ,telefone = ? WHERE id = ?";
+        String sql = "UPDATE tb_amigos set nome = ? ,telefone = ? WHERE id_amigo = ?";
 
         try {
             PreparedStatement stmt = db.getConexao().prepareStatement(sql);
@@ -180,7 +180,7 @@ public class AmigoDAO {
         try {
             Statement stmt = db.getConexao().createStatement();
 
-            ResultSet res = stmt.executeQuery("SELECT * FROM tb_amigos WHERE id = " + id);
+            ResultSet res = stmt.executeQuery("SELECT * FROM tb_amigos WHERE id_amigo = " + id);
             res.next();
 
             objeto.setNome(res.getString("nome"));
@@ -191,5 +191,85 @@ public class AmigoDAO {
             System.out.println("Erro:" + erro);
         }
         return objeto;
+    }
+
+    public static int getIdPeloNome(String nome) {
+        int id = -1;
+
+        try {
+            /**
+             * Prepara uma consulta SQL para obter o ID do amigo pelo nome
+             */
+            String query = "SELECT id_amigo FROM tb_amigos WHERE nome = ?";
+            PreparedStatement statement = ConexaoDataBaseDAO.getConexao().prepareStatement(query);
+            statement.setString(1, nome);
+            ResultSet resultSet = statement.executeQuery();
+
+            /**
+             * Se houver um resultado na consulta, obtém o ID
+             */
+            if (resultSet.next()) {
+                id = resultSet.getInt("id_amigo");
+            }
+        } catch (SQLException ex) {
+            /**
+             * Em caso de erro, imprime o erro
+             */
+            System.out.println("Erro:" + ex);
+        }
+
+        /**
+         * Retorna o ID obtido
+         */
+        return id;
+    }
+
+    /**
+     * Método para verificar se um amigo possui empréstimos pendentes
+     *
+     * @param id
+     * @return
+     */
+    public boolean verificarPendencia(int id) {
+
+        try {
+            /**
+             * Cria um Statement para executar a consulta SQL
+             */
+            Statement stmt = db.getConexao().createStatement();
+            /**
+             * Executa a consulta SQL para obter os empréstimos do amigo
+             */
+            ResultSet res = stmt.executeQuery("select id_amigo, entregue from tb_emprestimos;");
+            while (res.next()) {
+
+                /**
+                 * Obtém os dados de cada empréstimo
+                 */
+                int idAmg = res.getInt("id_amigo");
+                boolean entregue = res.getBoolean("entregue");
+
+                /**
+                 * Verifica se o amigo possui empréstimos pendentes
+                 */
+                if (idAmg == id && entregue == false) {
+                    return true; // retorna que o amigo tem empréstimos pendentes
+                }
+            }
+            /**
+             * Fecha o Statement
+             */
+            stmt.close();
+
+        } catch (SQLException ex) {
+            /**
+             * Em caso de erro, imprime o erro
+             */
+            System.out.println("Erro:" + ex);
+        }
+        /**
+         * Retorna falso se não houver pendências
+         */
+        return false;
     }
 }

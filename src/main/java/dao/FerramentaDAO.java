@@ -48,11 +48,12 @@ public class FerramentaDAO {
             while (res.next()) {
 
                 int id = res.getInt("id");
-                String ferramenta = res.getString("ferramenta");
+                int idEmprestimo = res.getInt("id_emprestimo");
+                String nome = res.getString("nome");
                 String marca = res.getString("marca");
                 double preco = res.getDouble("preco");
 
-                Ferramenta objeto = new Ferramenta(id, ferramenta, marca, preco);
+                Ferramenta objeto = new Ferramenta(id, idEmprestimo, nome, marca, preco);
 
                 minhaLista.add(objeto);
             }
@@ -100,12 +101,12 @@ public class FerramentaDAO {
      * contrário.
      */
     public boolean insertFerramentaBD(Ferramenta objeto) {
-        String sql = "INSERT INTO tb_ferramentas(id,ferramenta,marca,preco) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO tb_ferramentas(id,nome,marca,preco) VALUES(?,?,?,?)";
         try {
             PreparedStatement stmt = db.getConexao().prepareStatement(sql);
 
             stmt.setInt(1, objeto.getId());
-            stmt.setString(2, objeto.getFerramenta());
+            stmt.setString(2, objeto.getNome());
             stmt.setString(3, objeto.getMarca());
             stmt.setDouble(4, objeto.getPreco());
 
@@ -146,12 +147,12 @@ public class FerramentaDAO {
      */
     public boolean updateFerramentaBD(Ferramenta objeto) {
 
-        String sql = "UPDATE tb_ferramentas set ferramenta = ? ,marca = ? ,preco = ? WHERE id = ?";
+        String sql = "UPDATE tb_ferramentas set nome = ? ,marca = ? ,preco = ? WHERE id = ?";
 
         try {
             PreparedStatement stmt = db.getConexao().prepareStatement(sql);
 
-            stmt.setString(1, objeto.getFerramenta());
+            stmt.setString(1, objeto.getNome());
             stmt.setString(2, objeto.getMarca());
             stmt.setDouble(3, objeto.getPreco());
             stmt.setInt(4, objeto.getId());
@@ -182,9 +183,10 @@ public class FerramentaDAO {
             ResultSet res = stmt.executeQuery("SELECT * FROM tb_ferramentas WHERE id = " + id);
             res.next();
 
-            objeto.setFerramenta(res.getString("ferramenta"));
+            objeto.setNome(res.getString("nome"));
             objeto.setMarca(res.getString("marca"));
             objeto.setPreco(res.getDouble("preco"));
+            objeto.setIdEmprestimo(res.getInt("id_emprestimo"));
 
             stmt.close();
         } catch (SQLException erro) {
@@ -199,14 +201,16 @@ public class FerramentaDAO {
 
         try {
             Statement stmt = db.getConexao().createStatement();
-            ResultSet res = stmt.executeQuery("SELECT * FROM tb_ferramentas WHERE id is null");
+            ResultSet res = stmt.executeQuery("SELECT * FROM tb_ferramentas WHERE id_emprestimo is null");
             while (res.next()) {
 
-                int id = res.getInt("id_ferramenta");
-                String ferramenta = res.getString("ferramenta");
+                int id = res.getInt("id");
+                String nome = res.getString("nome");
                 String marca = res.getString("marca");
+                double preco = Double.parseDouble(res.getString("preco"));
+                int idEmprestimo = res.getInt("id_emprestimo");
 
-                Ferramenta objeto = new Ferramenta();
+                Ferramenta objeto = new Ferramenta(id, idEmprestimo, nome, marca, preco);
 
                 ListaFerramentasDisponiveis.add(objeto);
             }
@@ -216,5 +220,49 @@ public class FerramentaDAO {
             System.out.println("Erro:" + ex);
         }
         return ListaFerramentasDisponiveis;
+    }
+
+    public boolean verificarPendencia(int id) {
+
+        try {
+            Statement stmt = db.getConexao().createStatement();
+            ResultSet res = stmt.executeQuery("select id_ferramenta, id_emprestimo from tb_ferramentas;");
+            while (res.next()) {
+
+                int idFer = res.getInt("id_ferramenta");
+                int idEmp = res.getInt("id_emprestimo");
+
+                if (idFer == id && idEmp != 0) {
+                    return true;
+                    /**
+                     * retorna que a ferramenta está emprestada
+                     */
+                }
+            }
+            stmt.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Erro:" + ex);
+
+        }
+        return false;
+    }
+
+    public String valorTotal() {
+        double soma = 0;
+
+        try {
+            String query = "SELECT SUM(custo_aquisicao) FROM tb_ferramentas";
+            PreparedStatement statement = ConexaoDataBaseDAO.getConexao().prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                soma = resultSet.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro:" + ex);
+        }
+        String format = String.format("%.2f", soma);
+        return format;
     }
 }

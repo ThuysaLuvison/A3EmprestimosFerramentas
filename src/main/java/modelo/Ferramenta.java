@@ -9,7 +9,8 @@ public class Ferramenta {
      * Atributos.
      */
     private int id;
-    private String ferramenta;
+    private int idEmprestimo;
+    private String nome;
     private String marca;
     private double preco;
     FerramentaDAO dao;
@@ -18,7 +19,7 @@ public class Ferramenta {
      * Construtor de Objeto Vazio.
      */
     public Ferramenta() {
-        this(0, "", "", 0.0);
+        this(0, 0, "", "", 0.0);
     }
 
     /**
@@ -30,9 +31,10 @@ public class Ferramenta {
      * @param marca - Marca da ferramenta.
      * @param preco - Preço da ferramenta.
      */
-    public Ferramenta(int id, String ferramenta, String marca, double preco) {
+    public Ferramenta(int id, int idEmprestimo, String nome, String marca, double preco) {
         this.id = id;
-        this.ferramenta = ferramenta;
+        this.nome = nome;
+        this.idEmprestimo = idEmprestimo;
         this.marca = marca;
         this.preco = preco;
         dao = new FerramentaDAO();
@@ -56,22 +58,30 @@ public class Ferramenta {
         this.id = id;
     }
 
+    public int getIdEmprestimo() {
+        return idEmprestimo;
+    }
+
+    public void setIdEmprestimo(int idEmprestimo) {
+        this.idEmprestimo = idEmprestimo;
+    }
+
     /**
      * Retorna a ferramenta associada ao objeto.
      *
      * @return - Retorna a ferramneta associada ao objeto.
      */
-    public String getFerramenta() {
-        return ferramenta;
+    public String getNome() {
+        return nome;
     }
 
     /**
      * Define a ferramenta associada ao objeto.
      *
-     * @param Ferramenta - Ferramenta a ser associada ao objeto.
+     * @param Nome - Ferramenta a ser associada ao objeto.
      */
-    public void setFerramenta(String Ferramenta) {
-        this.ferramenta = ferramenta;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     /**
@@ -117,7 +127,7 @@ public class Ferramenta {
      */
     @Override
     public String toString() {
-        return super.toString() + "ferramenta=" + ferramenta + ", marca=" + marca + "preco=" + preco;
+        return super.toString() + "nome=" + nome + ", marca=" + marca + "preco=" + preco;
     }
 
     /**
@@ -132,15 +142,15 @@ public class Ferramenta {
     /**
      * Insere uma ferramenta no banco de dados.
      *
-     * @param ferramenta - Ferramenta a ser inserida.
+     * @param nome - Ferramenta a ser inserida.
      * @param marca - Marca da ferramenta a ser inserida.
      * @param preco - Preço da ferramenta a ser inserida.
      * @return - Verdadeiro se a inserção for bem-sucedida, falso caso
      * contrário.
      */
-    public boolean insertFerramentaBD(String ferramenta, String marca, double preco) {
+    public boolean insertFerramentaBD(String nome, String marca, double preco) {
         int id = this.maiorID() + 1;
-        Ferramenta objeto = new Ferramenta(id, ferramenta, marca, preco);
+        Ferramenta objeto = new Ferramenta(id, idEmprestimo, nome, marca, preco);
         dao.insertFerramentaBD(objeto);
         return true;
 
@@ -161,14 +171,14 @@ public class Ferramenta {
      * Atualiza uma ferramenta no banco de dados.
      *
      * @param id - Identificador da ferramenta a ser atualizada.
-     * @param ferramenta - Nova ferramenta a ser associada ao objeto.
+     * @param nome - Nova ferramenta a ser associada ao objeto.
      * @param marca - Nova marca da ferramenta.
      * @param preco - Novo preço da ferramenta.
      * @return - Verdadeiro se a atualização for bem-sucedida, falso caso
      * contrário.
      */
-    public boolean updateFerramentaBD(int id, String ferramenta, String marca, double preco) {
-        Ferramenta objeto = new Ferramenta(id, ferramenta, marca, preco);
+    public boolean updateFerramentaBD(int id, String nome, String marca, double preco) {
+        Ferramenta objeto = new Ferramenta(id, idEmprestimo, nome, marca, preco);
         dao.updateFerramentaBD(objeto);
         return true;
     }
