@@ -348,33 +348,6 @@ public class EmprestimoDAO {
      *
      * @return
      */
-    public boolean alterarIdEmpFerramentaLivre() {
-        String sql = "UPDATE tb_ferramentas SET id_emprestimo = ? WHERE nome = ?";
-        try {
-            PreparedStatement stmt = connect.getConexao().prepareStatement(sql);
-
-            if (FerSelect != null) {  // Verifique se FerSelect não é nulo
-                for (String nome : FerSelect) {
-                    stmt.setInt(1, maiorId());
-                    stmt.setString(2, nome);
-                    stmt.execute();
-                }
-                FerSelect.clear();
-            } else {
-                System.out.println("FerSelect está nulo.");
-                return false;  // Retorna falso se FerSelect estiver nulo
-            }
-
-            stmt.close();
-
-            return true;
-
-        } catch (SQLException erro) {
-            System.out.println("Erro: " + erro);
-            throw new RuntimeException(erro);
-        }
-    }
-
     public boolean alterarIdEmpFerramentaPendente(int id) {
         String sql = "UPDATE tb_ferramentas SET id_emprestimo = null WHERE id_emprestimo = ?";
         try {
