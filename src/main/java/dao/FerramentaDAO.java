@@ -47,7 +47,7 @@ public class FerramentaDAO {
             ResultSet res = stmt.executeQuery("SELECT * FROM tb_ferramentas");
             while (res.next()) {
 
-                int id = res.getInt("id");
+                int id = res.getInt("id_ferramenta");
                 int idEmprestimo = res.getInt("id_emprestimo");
                 String nome = res.getString("nome");
                 String marca = res.getString("marca");
@@ -83,7 +83,7 @@ public class FerramentaDAO {
         int maiorID = 0;
         try {
             Statement stmt = db.getConexao().createStatement();
-            ResultSet res = stmt.executeQuery("SELECT MAX(id) id FROM tb_ferramentas");
+            ResultSet res = stmt.executeQuery("SELECT MAX(id_ferramenta) id FROM tb_ferramentas");
             res.next();
             maiorID = res.getInt("id");
             stmt.close();
@@ -101,7 +101,7 @@ public class FerramentaDAO {
      * contrário.
      */
     public boolean insertFerramentaBD(Ferramenta objeto) {
-        String sql = "INSERT INTO tb_ferramentas(id,nome,marca,preco) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO tb_ferramentas(id_ferramenta,nome,marca,preco) VALUES(?,?,?,?)";
         try {
             PreparedStatement stmt = db.getConexao().prepareStatement(sql);
 
@@ -129,7 +129,7 @@ public class FerramentaDAO {
     public boolean deleteFerramentaBD(int id) {
         try {
             Statement stmt = db.getConexao().createStatement();
-            stmt.executeUpdate("DELETE FROM tb_ferramentas WHERE id = " + id);
+            stmt.executeUpdate("DELETE FROM tb_ferramentas WHERE id_ferramenta = " + id);
             stmt.close();
 
         } catch (SQLException erro) {
@@ -147,7 +147,7 @@ public class FerramentaDAO {
      */
     public boolean updateFerramentaBD(Ferramenta objeto) {
 
-        String sql = "UPDATE tb_ferramentas set nome = ? ,marca = ? ,preco = ? WHERE id = ?";
+        String sql = "UPDATE tb_ferramentas set nome = ? ,marca = ? ,preco = ? WHERE id_ferramenta = ?";
 
         try {
             PreparedStatement stmt = db.getConexao().prepareStatement(sql);
@@ -180,7 +180,7 @@ public class FerramentaDAO {
         try {
             Statement stmt = db.getConexao().createStatement();
 
-            ResultSet res = stmt.executeQuery("SELECT * FROM tb_ferramentas WHERE id = " + id);
+            ResultSet res = stmt.executeQuery("SELECT * FROM tb_ferramentas WHERE id_ferramenta = " + id);
             res.next();
 
             objeto.setNome(res.getString("nome"));
@@ -204,7 +204,7 @@ public class FerramentaDAO {
             ResultSet res = stmt.executeQuery("SELECT * FROM tb_ferramentas WHERE id_emprestimo is null");
             while (res.next()) {
 
-                int id = res.getInt("id");
+                int id = res.getInt("id_ferramenta");
                 String nome = res.getString("nome");
                 String marca = res.getString("marca");
                 double preco = Double.parseDouble(res.getString("preco"));
@@ -252,7 +252,7 @@ public class FerramentaDAO {
         double soma = 0;
 
         try {
-            String query = "SELECT SUM(custo_aquisicao) FROM tb_ferramentas";
+            String query = "SELECT SUM(preco) FROM tb_ferramentas";
             PreparedStatement statement = ConexaoDataBaseDAO.getConexao().prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 
