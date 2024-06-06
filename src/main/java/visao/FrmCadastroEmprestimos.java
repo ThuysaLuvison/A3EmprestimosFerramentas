@@ -350,8 +350,6 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
                 this.JTFDataDev.setText("");
 
             }
-
-            daoEmp.alterarIdEmpFerramentaLivre();
             /**
              * System.out.println(this.objEmprestimo.getListaFerramentas().toString());
              */
