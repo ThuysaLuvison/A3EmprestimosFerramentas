@@ -413,4 +413,21 @@ public class EmprestimoDAO {
         }
         return ListaEmprestimosPendentes;
     }
+    public String valorTotal() {
+        double soma = 0;
+
+        try {
+            String query = "SELECT SUM(preco) FROM tb_ferramentas";
+            PreparedStatement statement = ConexaoDataBaseDAO.getConexao().prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                soma = resultSet.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro:" + ex);
+        }
+        String format = String.format("%.2f", soma);
+        return format;
+    }
 }
