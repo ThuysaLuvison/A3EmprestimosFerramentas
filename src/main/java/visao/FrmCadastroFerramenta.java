@@ -1,5 +1,6 @@
 package visao;
 
+import dao.FerramentaDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,8 +12,9 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * Classe responsável por fornecer uma interface gráfica para cadastro,
- * alteração e exclusão de ferramentas. 
- * Também exibe uma tabela com os dados das ferramentas cadastradas. Esta classe utiliza objetos da classe Ferramenta para manipulação dos dados.
+ * alteração e exclusão de ferramentas. Também exibe uma tabela com os dados das
+ * ferramentas cadastradas. Esta classe utiliza objetos da classe Ferramenta
+ * para manipulação dos dados.
  */
 public class FrmCadastroFerramenta extends javax.swing.JFrame {
 
@@ -20,6 +22,8 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
      * Objeto da classe Ferramenta para manipulação dos dados.
      */
     private Ferramenta objetoferramenta;
+
+    private FerramentaDAO dao;
     /**
      * Conexão com o banco de dados.
      */
@@ -35,7 +39,9 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
          * Carrega objeto vazio de Ferramenta.
          */
         this.objetoferramenta = new Ferramenta();
+        this.dao = new FerramentaDAO();
         this.carregaTabela();
+        LValorTotal.setText("R$" + dao.valorTotal());
     }
 
     /**
@@ -283,6 +289,7 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Informe um número válido.");
         }
         this.carregaTabela();
+        LValorTotal.setText("R$" + dao.valorTotal());
     }//GEN-LAST:event_b_cadastrarActionPerformed
     /**
      * Método responsável por atualizar os dados da tabela de ferramentas.
@@ -509,7 +516,7 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /**
-         * Defina a aparência do Nimbus. 
+         * Defina a aparência do Nimbus.
          */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -583,4 +590,3 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
      * Fim da declaração de variáveis.
      */
 }
-

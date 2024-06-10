@@ -234,4 +234,25 @@ public class FerramentaDAO {
         }
         return false;
     }
+    /**
+     * Método para calcular o valor total de todas as ferramentas.
+     *
+     * @return Valor total formatado como String.
+     */
+    public String valorTotal() {
+        double soma = 0;
+
+        try {
+            String query = "SELECT SUM(preco) FROM tb_ferramentas";
+            PreparedStatement statement = db.getConexao().prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                soma = resultSet.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro:" + ex);
+        }
+        return String.format("%.2f", soma);
+    }
 }
