@@ -11,10 +11,14 @@ import modelo.Emprestimo;
  */
 public class FrmRelatorioTotal extends javax.swing.JFrame {
 
-    // DAO para acessar os empréstimos
+    /**
+     * DAO para acessar os empréstimos.
+     */
     private EmprestimoDAO dao;
 
-    // Objeto para armazenar o empréstimo atual
+    /**
+     * Objeto para armazenar o empréstimo atual
+     */
     private Emprestimo objetoEmprestimo;
 
     /**
@@ -42,7 +46,9 @@ public class FrmRelatorioTotal extends javax.swing.JFrame {
                 a.getDataDevolucao(),
                 a.isEntregue()});
         }
-        // Define a largura das colunas da tabela
+        /**
+         * Define a largura das colunas da tabela.
+         */
         jTable.getColumn("ID").setPreferredWidth(50);
         jTable.getColumn("ID_Amg").setPreferredWidth(50);
         jTable.getColumn("Data_Empréstimo").setPreferredWidth(140);
@@ -149,52 +155,79 @@ public class FrmRelatorioTotal extends javax.swing.JFrame {
          */
         try {
             int id = 0;
-            // Verifica se alguma linha da tabela está selecionada
+            /**
+             * Verifica se alguma linha da tabela está selecionada.
+             */
             if (this.jTable.getSelectedRow() == -1) {
                 throw new Mensagem(
                         "Primeiro Selecione um Empréstimo para APAGAR");
             } else {
-                // Obtém o ID do empréstimo selecionado
+                /**
+                 * Obtém o ID do empréstimo selecionado.
+                 */
                 id = Integer.parseInt(this.jTable.getValueAt(this.jTable.getSelectedRow(), 0).toString());
 
-                // Verifica se o empréstimo está pendente
+                /**
+                 * Verifica se o empréstimo está pendente.
+                 */
                 boolean Ver = dao.verificarPendencia(id);
                 if (Ver == true) {
-                    // Exibe uma mensagem informando que o empréstimo está pendente e não pode ser excluído
+                    /**
+                     * Exibe uma mensagem informando que o empréstimo está
+                     * pendente e não pode ser excluído.
+                     */
                     JOptionPane.showMessageDialog(null, "Esse Empréstimo está pendente "
                             + "\n   e não pode ser excluido");
                 } else {
-                    // Confirma se o usuário deseja realmente apagar o empréstimo
+                    /**
+                     * Confirma se o usuário deseja realmente apagar o
+                     * empréstimo.
+                     */
                     int respostaUsuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja apagar este Empréstimo?");
 
                     if (respostaUsuario == 0) {
-                        // Se a resposta for sim, tenta apagar o empréstimo
+                        /**
+                         * Se a resposta for sim, tenta apagar o empréstimo.
+                         */
                         if (dao.alterarIdEmpFerramentaPendente(id) && this.objetoEmprestimo.apagarEmprestimo(id)) {
-                            // Exibe uma mensagem de sucesso se o empréstimo for apagado com sucesso
+                            /**
+                             * Exibe uma mensagem de sucesso se o empréstimo for
+                             * apagado com sucesso.
+                             */
                             JOptionPane.showMessageDialog(rootPane, "Empréstimo Apagado com Sucesso!");
                         }
                     }
                 }
             }
-            // Imprime a lista atualizada de empréstimos
+            /**
+             * Imprime a lista atualizada de empréstimos.
+             */
             System.out.println(this.dao.getMinhaLista().toString());
         } catch (Mensagem erro) {
-            // Exibe mensagens de erro
+            /**
+             * Exibe mensagens de erro.
+             */
             JOptionPane.showMessageDialog(null, erro.getMessage());
         } finally {
-            // Atualiza a tabela de empréstimos
+
+            /**
+             * Atualiza a tabela de empréstimos.
+             */
             carregaTabelaEmprestimos();
         }
     }//GEN-LAST:event_JBApagarActionPerformed
 
     private void JBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCancelarActionPerformed
-        // Fecha a janela atual
+
+        /**
+         * Fecha a janela atual.
+         */
         this.dispose();
     }//GEN-LAST:event_JBCancelarActionPerformed
     /**
      * Método principal que inicializa a interface gráfica do formulário de
-     * Relatorio Totais. É chamado pelo método main da aplicação para iniciar
-     * a execução da interface.
+     * Relatorio Totais. É chamado pelo método main da aplicação para iniciar a
+     * execução da interface.
      */
     public static void main(String args[]) {
 
