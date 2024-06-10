@@ -235,13 +235,13 @@ public class FrmCadastroFerramentas extends javax.swing.JFrame {
             }
 
             if (this.JTFMarca.getText().length() < 2) {
-                throw new Mensagem("Curso deve conter ao menos 2 caracteres.");
+                throw new Mensagem("Marca deve conter ao menos 2 caracteres.");
             } else {
                 marca = this.JTFMarca.getText();
             }
 
             if (this.JTFCusto.getText().length() <= 0) {
-                throw new Mensagem("Fase deve ser número e maior que zero.");
+                throw new Mensagem("Preço deve ser número e maior que zero.");
             } else {
                 preco = Double.parseDouble(this.JTFCusto.getText());
             }

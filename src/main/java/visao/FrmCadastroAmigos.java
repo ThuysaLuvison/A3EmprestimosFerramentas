@@ -228,7 +228,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
              * Envia os dados para o controlador cadastrar.
              */
             if (this.objetoamigo.insertAmigoBD(nome, telefone)) {
-                JOptionPane.showMessageDialog(null, "Amigo Cadastrada com Sucesso!");
+                JOptionPane.showMessageDialog(null, "Amigo Cadastrado com Sucesso!");
                 /**
                  * Limpa campos da interface.
                  */
@@ -287,7 +287,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
                  */
                 this.JTFNome.setText("");
                 this.JTFTelefone.setText("");
-                JOptionPane.showMessageDialog(null, "Amigo alterada com Sucesso!");
+                JOptionPane.showMessageDialog(null, "Amigo alterado com Sucesso!");
 
             }
             /**
@@ -323,7 +323,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
              * Retorna 0 -> primeiro botão | 1 -> segundo botão | 2 -> terceiro
              * botão.
              */
-            int respostaUsuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja apagar este amigo ?");
+            int respostaUsuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja apagar este amigo?");
 
             if (respostaUsuario == 0) {
 
@@ -336,7 +336,7 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
                      */
                     this.JTFNome.setText("");
                     this.JTFTelefone.setText("");
-                    JOptionPane.showMessageDialog(rootPane, "Amigo apagada com sucesso!");
+                    JOptionPane.showMessageDialog(rootPane, "Amigo apagado com sucesso!");
                 }
             }
             /**
