@@ -29,6 +29,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItemSair = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
@@ -93,6 +94,14 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItem6);
+
+        jMenuItem3.setText("Mais Empréstimos");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem3);
 
         jMenu1.add(jMenu3);
 
@@ -189,6 +198,15 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         FrmRelatorioTotal objeto = new FrmRelatorioTotal();
         objeto.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        /**
+         * Cria uma instância do formulário de relatório de mais empréstimos e
+         * o torna visível.
+         */
+        FrmRelatorioMaisEmprestimo objeto = new FrmRelatorioMaisEmprestimo();
+        objeto.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
     /**
      * Método principal da aplicação, responsável por configurar o look and feel
      * e iniciar o formulário principal.
@@ -233,6 +251,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;

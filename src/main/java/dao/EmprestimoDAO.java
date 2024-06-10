@@ -32,6 +32,11 @@ public class EmprestimoDAO {
     public ArrayList<Emprestimo> ListaEmprestimosPendentes = new ArrayList<>();
 
     /**
+     * Lista de mais empréstimos.
+     */
+    ArrayList<String> usuarioComMaisEmprestimos = new ArrayList<>();
+
+    /**
      * Conexão com o banco de dados.
      */
     private ConexaoDataBaseDAO connect;
@@ -373,5 +378,56 @@ public class EmprestimoDAO {
             System.out.println("Erro:" + ex);
         }
         return String.format("%.2f", soma);
+    }
+
+    public ArrayList<String> getUsuarioComMaisEmprestimos() {
+
+        usuarioComMaisEmprestimos.clear();
+        /**
+         * Limpa a lista atual antes de preenchê-la
+         */
+        try {
+            /**
+             * Cria um statement para executar a consulta
+             */
+            Statement stmt = connect.getConexao().createStatement();
+            /**
+             * Executa a consulta SQL para obter os empréstimos que ainda não
+             * foram entregues
+             */
+            ResultSet res = stmt.executeQuery(" SELECT a.nome, a.telefone\n"
+                    + "	FROM tb_amigos a\n"
+                    + "	JOIN (\n"
+                    + "      SELECT e.id_amigo, COUNT(e.id_amigo) AS total_emprestimos\n"
+                    + "      FROM tb_emprestimos e\n"
+                    + "      GROUP BY e.id_amigo\n"
+                    + "	) AS emprestimos_por_amigo ON a.id_amigo = emprestimos_por_amigo.id_amigo\n"
+                    + "	ORDER BY emprestimos_por_amigo.total_emprestimos DESC\n"
+                    + "     LIMIT 1;");
+            /**
+             * Itera sobre o resultado da consulta
+             */
+            while (res.next()) {
+
+                /**
+                 * Obtém os dados de cada empréstimo do resultado
+                 */
+                String nomeAmigo = res.getString("nome");
+                String telefone = res.getString("telefone");
+
+                usuarioComMaisEmprestimos.add(nomeAmigo);
+                usuarioComMaisEmprestimos.add(telefone);
+
+                /**
+                 * Cria um objeto Emprestimo com os dados obtidos e o adiciona à
+                 * lista de empréstimos ativos
+                 */
+            }
+            stmt.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Erro:" + ex);
+        }
+        return usuarioComMaisEmprestimos;
     }
 }
