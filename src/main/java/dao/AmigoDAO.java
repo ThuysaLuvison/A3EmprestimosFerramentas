@@ -194,6 +194,12 @@ public class AmigoDAO {
         return objeto;
     }
 
+    /**
+     * Retorna o ID do amigo com base no nome.
+     *
+     * @param nome - Nome do amigo.
+     * @return - Inteiro representando o ID do amigo.
+     */
     public static int getIdPeloNome(String nome) {
         int id = -1;
 
@@ -228,8 +234,8 @@ public class AmigoDAO {
     /**
      * Método para verificar se um amigo possui empréstimos pendentes
      *
-     * @param id
-     * @return
+     * @param id - ID do amigo.
+     * @return - Boolean indicando se há empréstimos pendentes.
      */
     public boolean verificarPendencia(int id) {
 

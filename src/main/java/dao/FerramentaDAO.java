@@ -10,8 +10,6 @@ import modelo.Ferramenta;
 /**
  * Classe responsável pela manipulação de dados das ferramentas no banco de
  * dados.
- *
- * @author Thuysa.
  */
 public class FerramentaDAO {
 
@@ -37,16 +35,12 @@ public class FerramentaDAO {
      * @return - Retorna a lista de ferramentas.
      */
     public ArrayList<Ferramenta> getMinhaLista() {
-        /**
-         * Limpa nosso ArrayList.
-         */
         minhaLista.clear();
 
         try {
             Statement stmt = db.getConexao().createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM tb_ferramentas");
             while (res.next()) {
-
                 int id = res.getInt("id_ferramenta");
                 int idEmprestimo = res.getInt("id_emprestimo");
                 String nome = res.getString("nome");
@@ -54,11 +48,9 @@ public class FerramentaDAO {
                 double preco = res.getDouble("preco");
 
                 Ferramenta objeto = new Ferramenta(id, idEmprestimo, nome, marca, preco);
-
                 minhaLista.add(objeto);
             }
             stmt.close();
-
         } catch (SQLException ex) {
             System.out.println("Erro:" + ex);
         }
@@ -97,8 +89,7 @@ public class FerramentaDAO {
      * Insere uma nova ferramenta no banco de dados.
      *
      * @param objeto - A ferramenta a ser inserida.
-     * @return - Verdadeiro se a inserção foi bem-sucedida, falso caso
-     * contrário.
+     * @return - Verdadeiro se a inserção foi bem-sucedida, falso caso contrário.
      */
     public boolean insertFerramentaBD(Ferramenta objeto) {
         String sql = "INSERT INTO tb_ferramentas(id_ferramenta,nome,marca,preco) VALUES(?,?,?,?)";
@@ -132,7 +123,6 @@ public class FerramentaDAO {
             stmt.executeUpdate("DELETE FROM tb_emprestimos WHERE id_ferramenta = " + id);
             stmt.executeUpdate("DELETE FROM tb_ferramentas WHERE id_ferramenta = " + id);
             stmt.close();
-
         } catch (SQLException erro) {
             System.out.println("Erro:" + erro);
         }
@@ -143,12 +133,10 @@ public class FerramentaDAO {
      * Atualiza os dados de uma ferramenta no banco de dados.
      *
      * @param objeto - A ferramenta com os dados atualizados.
-     * @return - Verdadeiro se a atualização foi bem-sucedida, falso caso
-     * contrário.
+     * @return - Verdadeiro se a atualização foi bem-sucedida, falso caso contrário.
      */
     public boolean updateFerramentaBD(Ferramenta objeto) {
-
-        String sql = "UPDATE tb_ferramentas set nome = ? ,marca = ? ,preco = ? WHERE id_ferramenta = ?";
+        String sql = "UPDATE tb_ferramentas set nome = ?, marca = ?, preco = ? WHERE id_ferramenta = ?";
 
         try {
             PreparedStatement stmt = db.getConexao().prepareStatement(sql);
@@ -162,7 +150,6 @@ public class FerramentaDAO {
             stmt.close();
 
             return true;
-
         } catch (SQLException erro) {
             System.out.println("Erro:" + erro);
             throw new RuntimeException(erro);
@@ -180,7 +167,6 @@ public class FerramentaDAO {
         objeto.setId(id);
         try {
             Statement stmt = db.getConexao().createStatement();
-
             ResultSet res = stmt.executeQuery("SELECT * FROM tb_ferramentas WHERE id_ferramenta = " + id);
             res.next();
 
@@ -196,55 +182,55 @@ public class FerramentaDAO {
         return objeto;
     }
 
+    /**
+     * Retorna a lista de ferramentas disponíveis para empréstimo.
+     *
+     * @return - Retorna a lista de ferramentas disponíveis.
+     */
     public ArrayList<Ferramenta> getFerramentasDisponiveis() {
-
         ListaFerramentasDisponiveis.clear();
 
         try {
             Statement stmt = db.getConexao().createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM tb_ferramentas WHERE id_emprestimo is null");
             while (res.next()) {
-
                 int id = res.getInt("id_ferramenta");
                 String nome = res.getString("nome");
                 String marca = res.getString("marca");
-                double preco = Double.parseDouble(res.getString("preco"));
+                double preco = res.getDouble("preco");
                 int idEmprestimo = res.getInt("id_emprestimo");
 
                 Ferramenta objeto = new Ferramenta(id, idEmprestimo, nome, marca, preco);
-
                 ListaFerramentasDisponiveis.add(objeto);
             }
             stmt.close();
-
         } catch (SQLException ex) {
             System.out.println("Erro:" + ex);
         }
         return ListaFerramentasDisponiveis;
     }
 
+    /**
+     * Verifica se uma ferramenta está pendente de devolução.
+     *
+     * @param id - O ID da ferramenta a ser verificada.
+     * @return - Verdadeiro se a ferramenta está emprestada, falso caso contrário.
+     */
     public boolean verificarPendencia(int id) {
-
         try {
             Statement stmt = db.getConexao().createStatement();
-            ResultSet res = stmt.executeQuery("select id_ferramenta, id_emprestimo from tb_ferramentas;");
+            ResultSet res = stmt.executeQuery("SELECT id_ferramenta, id_emprestimo FROM tb_ferramentas");
             while (res.next()) {
-
                 int idFer = res.getInt("id_ferramenta");
                 int idEmp = res.getInt("id_emprestimo");
 
                 if (idFer == id && idEmp != 0) {
-                    return true;
-                    /**
-                     * retorna que a ferramenta está emprestada
-                     */
+                    return true;  // retorna que a ferramenta está emprestada
                 }
             }
             stmt.close();
-
         } catch (SQLException ex) {
             System.out.println("Erro:" + ex);
-
         }
         return false;
     }

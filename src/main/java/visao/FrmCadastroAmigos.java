@@ -355,17 +355,36 @@ public class FrmCadastroAmigos extends javax.swing.JFrame {
     }//GEN-LAST:event_b_apagarActionPerformed
 
     private void JTableAmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableAmigosMouseClicked
+        /**
+         * Verifica se há uma linha selecionada na JTable. Se houver, obtém o
+         * nome e o telefone da linha selecionada, e define esses valores nos
+         * campos de texto.
+         */
         if (this.JTableAmigos.getSelectedRow() != -1) {
+            // Obtém o nome da linha selecionada na JTable e o converte para String.
             String nome = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 1).toString();
+            // Obtém o telefone da linha selecionada na JTable e o converte para String.
             String telefone = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 2).toString();
+            // Define o valor obtido do nome no campo de texto JTFNome.
             this.JTFNome.setText(nome);
+            // Define o valor obtido do telefone no campo de texto JTFTelefone.
             this.JTFTelefone.setText(telefone);
         }
+        /**
+         * Verifica novamente se há uma linha selecionada na JTable. Se houver,
+         * obtém o nome e o telefone da linha selecionada, remove caracteres não
+         * numéricos do telefone, e define esses valores nos campos de texto.
+         */
         if (this.JTableAmigos.getSelectedRow() != -1) {
+            // Obtém o nome da linha selecionada na JTable e o converte para String.
             String nome = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 1).toString();
+            // Obtém o telefone da linha selecionada na JTable e o converte para String.
             String telefone = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 2).toString();
+            // Remove todos os caracteres não numéricos do telefone.
             telefone = telefone.replaceAll("[^0-9]", "");
+            // Define o valor obtido do nome no campo de texto JTFNome.
             this.JTFNome.setText(nome);
+            // Define o valor do telefone (apenas números) no campo de texto JTFTelefone.
             this.JTFTelefone.setText(telefone);
         }
     }//GEN-LAST:event_JTableAmigosMouseClicked

@@ -12,18 +12,31 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Emprestimo;
 import modelo.Util;
 
+/**
+ * JFrame para exibir o relatório de empréstimos ativos.
+ */
 public class FrmRelatorioAtivos extends javax.swing.JFrame {
 
     private Emprestimo objetoEmprestimo;
     private EmprestimoDAO dao;
 
+    /**
+     * Construtor da classe. Inicializa os componentes da interface gráfica,
+     * cria um objeto Emprestimo e um objeto EmprestimoDAO, e carrega a tabela
+     * de empréstimos ativos.
+     */
     public FrmRelatorioAtivos() {
-        initComponents();      
+        initComponents();
         this.objetoEmprestimo = new Emprestimo();
         this.dao = new EmprestimoDAO();
         carregaTabelaEmprestimos();
     }
 
+    /**
+     * Método para carregar a tabela de empréstimos ativos. Obtém os empréstimos
+     * ativos do banco de dados através do EmprestimoDAO e os adiciona à tabela.
+     * Define as larguras preferenciais das colunas da tabela.
+     */
     private void carregaTabelaEmprestimos() {
         DefaultTableModel modelo = (DefaultTableModel) this.jTable.getModel();
         modelo.setNumRows(0);
@@ -204,7 +217,9 @@ public class FrmRelatorioAtivos extends javax.swing.JFrame {
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
         /**
-         * TODO add your handling code here:
+         * Atualiza os campos de texto com as datas de devolução e empréstimo da
+         * linha selecionada na tabela. Se nenhuma linha estiver selecionada, os
+         * campos de texto permanecem inalterados.
          */
         if (this.jTable.getSelectedRow() != -1) {
             String dataDev = this.jTable.getValueAt(this.jTable.getSelectedRow(), 3).toString();
@@ -216,13 +231,17 @@ public class FrmRelatorioAtivos extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableMouseClicked
 
     private void JBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAlterarActionPerformed
-        // TODO add your handling code here:
+        /**
+         * Método para alterar um empréstimo existente.
+         */
         try {
             int id = 0;
+            // Verifica se foi selecionada uma linha na tabela
             if (this.jTable.getSelectedRow() == -1) {
                 throw new Mensagem(
                         "Primeiro Selecione um Empréstimo para ALTERAR");
             } else {
+                // Obtém o ID do empréstimo selecionado na tabela
                 id = Integer.parseInt(this.jTable.getValueAt(this.jTable.getSelectedRow(), 0).toString());
             }
 
@@ -231,8 +250,10 @@ public class FrmRelatorioAtivos extends javax.swing.JFrame {
             Date dataEmprestimo = Util.stringParaDateSQL(JTFDataEmp.getText());
             boolean Entregue = false;
 
+            // Verifica se a data de devolução está no formato correto
             if (this.JTFDataDev.getText().matches(regex)) {
                 dataDevolucao = Util.stringParaDateSQL(JTFDataDev.getText());
+                // Verifica se a data de devolução é válida
                 if (dataDevolucao.before(dataEmprestimo)) {
                     dataDevolucao = null;
                     throw new Mensagem("Data de Devolução não pode ser antes da Data do Empréstimo");
@@ -244,8 +265,9 @@ public class FrmRelatorioAtivos extends javax.swing.JFrame {
                     throw new Mensagem("Data de Devolução não pode ser igual a da Data do Empréstimo");
                 }
             } else {
-                throw new Mensagem("Data de Devolução deve conter o seguite formato:\nyyyy-MM-dd");
+                throw new Mensagem("Data de Devolução deve conter o seguinte formato:\nyyyy-MM-dd");
             }
+            // Verifica se o empréstimo foi entregue
             if (JCBEntregue.isSelected()) {
                 int respostaUsuario = JOptionPane.showConfirmDialog(null, "Tem certeza que este Empréstimo foi finalizado?");
 
@@ -260,6 +282,7 @@ public class FrmRelatorioAtivos extends javax.swing.JFrame {
                 }
             }
 
+            // Altera o empréstimo no banco de dados
             if (this.objetoEmprestimo.alterarEmprestimo(dataDevolucao, Entregue, id)) {
                 this.JTFDataDev.setText("");
                 this.JCBEntregue.setSelected(false);
@@ -270,18 +293,24 @@ public class FrmRelatorioAtivos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         } catch (NumberFormatException erro2) {
             JOptionPane.showMessageDialog(null, "Informe um número válido.");
+
         } catch (TextFormat.ParseException | ParseException ex) {
-            Logger.getLogger(FrmRelatorioTotais.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmRelatorioTotais.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } finally {
             carregaTabelaEmprestimos();
-        }                                         
+        }
     }//GEN-LAST:event_JBAlterarActionPerformed
 
     private void JBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCancelarActionPerformed
-        // TODO add your handling code here:
+        // Fecha a janela atual
         this.dispose();
     }//GEN-LAST:event_JBCancelarActionPerformed
-
+    /**
+     * Método principal que inicializa a interface gráfica do formulário de
+     * Relatorio Ativos. É chamado pelo método main da aplicação para iniciar a
+     * execução da interface.
+     */
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {

@@ -12,18 +12,31 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Emprestimo;
 import modelo.Util;
 
+/**
+ * Classe que representa a janela de relatório de empréstimos pendentes.
+ */
 public class FrmRelatorioPendentes extends javax.swing.JFrame {
 
+    // Objeto para armazenar o empréstimo atual
     private Emprestimo objetoEmprestimo;
+
+    // DAO para acessar os empréstimos
     private EmprestimoDAO dao;
 
+    /**
+     * Construtor da classe FrmRelatorioPendentes. Inicializa os componentes da
+     * interface gráfica e carrega a tabela de empréstimos pendentes.
+     */
     public FrmRelatorioPendentes() {
-        initComponents();      
+        initComponents();
         this.objetoEmprestimo = new Emprestimo();
         this.dao = new EmprestimoDAO();
         carregaTabelaEmprestimos();
     }
 
+    /**
+     * Método privado para carregar a tabela de empréstimos pendentes.
+     */
     private void carregaTabelaEmprestimos() {
         DefaultTableModel modelo = (DefaultTableModel) this.jTable.getModel();
         modelo.setNumRows(0);
@@ -35,6 +48,8 @@ public class FrmRelatorioPendentes extends javax.swing.JFrame {
                 a.getDataDevolucao(),
                 a.isEntregue()});
         }
+
+        // Define a largura das colunas da tabela
         jTable.getColumn("ID").setPreferredWidth(50);
         jTable.getColumn("ID_Amg").setPreferredWidth(50);
         jTable.getColumn("Data_Empréstimo").setPreferredWidth(140);
@@ -208,12 +223,16 @@ public class FrmRelatorioPendentes extends javax.swing.JFrame {
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
         /**
-         * TODO add your handling code here:
+         * Verifica se alguma linha da tabela está selecionada e, se sim,
+         * preenche os campos de data de devolução e data de empréstimo com os
+         * valores da linha selecionada.
          */
         if (this.jTable.getSelectedRow() != -1) {
+            // Obtém a data de devolução da linha selecionada e a define no campo de texto JTFDataDev
             String dataDev = this.jTable.getValueAt(this.jTable.getSelectedRow(), 3).toString();
             String dataEmp = this.jTable.getValueAt(this.jTable.getSelectedRow(), 2).toString();
 
+            // Obtém a data de empréstimo da linha selecionada e a define no campo de texto JTFDataEmp
             this.JTFDataDev.setText(dataDev);
             this.JTFDataEmp.setText(dataEmp);
         }
@@ -221,14 +240,16 @@ public class FrmRelatorioPendentes extends javax.swing.JFrame {
 
     private void JBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAlterarActionPerformed
         /**
-         * TODO add your handling code here:
+         * Método para alterar um empréstimo existente.
          */
         try {
             int id = 0;
+            // Verifica se foi selecionada uma linha na tabela
             if (this.jTable.getSelectedRow() == -1) {
                 throw new Mensagem(
                         "Primeiro Selecione um Empréstimo para ALTERAR");
             } else {
+                // Obtém o ID do empréstimo selecionado na tabela
                 id = Integer.parseInt(this.jTable.getValueAt(this.jTable.getSelectedRow(), 0).toString());
             }
 
@@ -237,6 +258,7 @@ public class FrmRelatorioPendentes extends javax.swing.JFrame {
             Date dataEmprestimo = Util.stringParaDateSQL(JTFDataEmp.getText());
             boolean Entregue = false;
 
+            // Verifica se a data de devolução está no formato correto
             if (this.JTFDataDev.getText().matches(regex)) {
                 dataDevolucao = Util.stringParaDateSQL(JTFDataDev.getText());
                 if (dataDevolucao.before(dataEmprestimo)) {
@@ -252,6 +274,8 @@ public class FrmRelatorioPendentes extends javax.swing.JFrame {
             } else {
                 throw new Mensagem("Data de Devolução deve conter o seguite formato:\nyyyy-MM-dd");
             }
+
+            // Verifica se o empréstimo foi entregue
             if (JCBEntregue.isSelected()) {
                 int respostaUsuario = JOptionPane.showConfirmDialog(null, "Tem certeza que este Empréstimo foi finalizado?");
 
@@ -266,6 +290,7 @@ public class FrmRelatorioPendentes extends javax.swing.JFrame {
                 }
             }
 
+            // Altera o empréstimo no banco de dados
             if (this.objetoEmprestimo.alterarEmprestimo(dataDevolucao, Entregue, id)) {
                 this.JTFDataDev.setText("");
                 this.JCBEntregue.setSelected(false);
@@ -284,10 +309,14 @@ public class FrmRelatorioPendentes extends javax.swing.JFrame {
     }//GEN-LAST:event_JBAlterarActionPerformed
 
     private void JBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCancelarActionPerformed
-        // TODO add your handling code here:
+        // Fecha a janela atual
         this.dispose();
     }//GEN-LAST:event_JBCancelarActionPerformed
-
+    /**
+     * Método principal que inicializa a interface gráfica do formulário de
+     * Relatorio Pendentes. É chamado pelo método main da aplicação para iniciar
+     * a execução da interface.
+     */
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {

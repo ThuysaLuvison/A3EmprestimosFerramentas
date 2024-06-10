@@ -35,29 +35,31 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
      * Construtor da classe
      */
     public FrmCadastroEmprestimos() {
-        initComponents();      
+        initComponents();
         String data = Util.dataAtual().toString();
         JTFDataEmp.setText(data);
         db = new ConexaoDataBaseDAO();
         this.objetoEmprestimo = new Emprestimo();
         this.daoAmg = new AmigoDAO();
         this.dao = new FerramentaDAO();
-        this.daoEmp = new EmprestimoDAO(); 
+        this.daoEmp = new EmprestimoDAO();
         this.FerSelect = new ArrayList<>();
         preencherComboBox();
         JValorTotal.setText("R$" + daoEmp.valorTotal());
         carregaTabelaFerramentas();
     }
-        
+
     /**
-     * Método para preencher o ComboBox com os nomes dos amigos
+     * Método para preencher o ComboBox com os nomes dos amigos.
      */
     private void preencherComboBox() {
         try {
+            // Consulta SQL para obter os nomes dos amigos.
             String query = "SELECT nome FROM tb_amigos";
             PreparedStatement statement = db.getConexao().prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 
+            // Adiciona os nomes dos amigos no ComboBox.
             while (resultSet.next()) {
                 String nome = resultSet.getString("nome");
                 JCBAmigo.addItem(nome);
@@ -65,18 +67,18 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
 
         } catch (SQLException ex) {
             System.out.println("Erro:" + ex);
-            /**
-             * Lidar com exceções adequadamente
-             */
+            // Lidar com exceções adequadamente.
         }
     }
 
     /**
-     * Método para carregar a tabela de ferramentas disponíveis
+     * Método para carregar a tabela de ferramentas disponíveis.
      */
     private void carregaTabelaFerramentas() {
+        // Define o modelo da tabela e zera o número de linhas.
         DefaultTableModel modelo = (DefaultTableModel) this.jTable.getModel();
         modelo.setNumRows(0);
+        // Adiciona as ferramentas disponíveis no modelo da tabela.
         for (Ferramenta a : dao.getFerramentasDisponiveis()) {
             modelo.addRow(new Object[]{
                 a.getNome()});
@@ -308,11 +310,19 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JCBAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBAmigoActionPerformed
+        /**
+         * Obtém o nome do amigo selecionado no ComboBox e o define no campo de
+         * texto correspondente.
+         */
         String nomeSelecionado = (String) JCBAmigo.getSelectedItem();
         JTFAmigo.setText(nomeSelecionado);
     }//GEN-LAST:event_JCBAmigoActionPerformed
 
     private void JTFDataDevMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTFDataDevMouseClicked
+        /**
+         * Verifica se a variável countData é verdadeira. Se for, limpa o campo
+         * de data de devolução e define countData como falso.
+         */
         if (countData == true) {
             JTFDataDev.setText("");
             countData = false;
@@ -327,6 +337,11 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
     }//GEN-LAST:event_JTFDataDevKeyPressed
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
+        /**
+         * Verifica se há uma linha selecionada na tabela. Se houver, obtém o
+         * nome da ferramenta da célula selecionada e define o texto do campo
+         * JTFFerramenta com esse nome.
+         */
         if (this.jTable.getSelectedRow() != -1) {
             String nome = this.jTable.getValueAt(this.jTable.getSelectedRow(), 0).toString();
             this.JTFFerramenta.setText(nome);
@@ -334,30 +349,41 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableMouseClicked
 
     private void jTableAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTableAncestorAdded
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTableAncestorAdded
 
     private void JBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCancelarActionPerformed
-        // TODO add your handling code here:
+        // Fecha a janela atual
         this.dispose();
     }//GEN-LAST:event_JBCancelarActionPerformed
 
     private void JBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCadastrarActionPerformed
-        // TODO add your handling code here:
+        /**
+         * Tenta realizar o cadastro do empréstimo com base nos dados fornecidos
+         * pelo usuário.
+         *
+         * @throws Mensagem Se ocorrer algum erro durante o cadastro do
+         * empréstimo.
+         */
         try {
+            // Expressão regular para validar o formato da data
             String regex = "\\d{4}-\\d{2}-\\d{2}";
             int idAmg = 0;
             Date dataEmprestimo = Util.dataAtual();
             boolean entregue = false;
             Date dataDevolucao = null;
 
+            // Verifica se foi selecionado um amigo
             if ("".equals(this.JTFAmigo.getText())) {
                 throw new Mensagem("Primeiro selecione um Amigo.");
             } else {
+                // Obtém o ID do amigo selecionado
                 idAmg = AmigoDAO.getIdPeloNome(JTFAmigo.getText());
+                // Verifica se o amigo possui empréstimos pendentes
                 boolean Ver = daoAmg.verificarPendencia(idAmg);
                 if (Ver == true) {
-                    int respostaUsuario = JOptionPane.showConfirmDialog(null, "Esse amigo tem empréstimos pendentes deseja continuar?");
+                    // Exibe um diálogo de confirmação se o amigo tem empréstimos pendentes
+                    int respostaUsuario = JOptionPane.showConfirmDialog(null, "Esse amigo tem empréstimos pendentes. Deseja continuar?");
 
                     if (respostaUsuario != 0) {
                         return;
@@ -365,10 +391,12 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
                 }
             }
 
+            // Verifica se foi selecionada pelo menos uma ferramenta
             if (FerSelect.size() == 0) {
                 throw new Mensagem("Primeiro selecione pelo menos uma Ferramenta");
             }
 
+            // Verifica se a data de devolução foi inserida no formato correto
             if (this.JTFDataDev.getText().matches(regex)) {
                 dataDevolucao = Util.stringParaDateSQL(JTFDataDev.getText());
                 if (dataDevolucao.before(dataEmprestimo)) {
@@ -382,19 +410,16 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
                     throw new Mensagem("Data de Devolução não pode ser igual a da Data do Empréstimo");
                 }
             } else {
-                throw new Mensagem("Data de Devolução deve conter o seguite formato:\nyyyy-MM-dd");
+                throw new Mensagem("Data de Devolução deve conter o seguinte formato:\nyyyy-MM-dd");
             }
 
+            // Insere o empréstimo no banco de dados
             if (this.objetoEmprestimo.inserirEmprestimo(dataEmprestimo, dataDevolucao, entregue, idAmg)) {
                 JOptionPane.showMessageDialog(rootPane, "Empréstimo Cadastrado com Sucesso!");
                 this.JTFAmigo.setText("");
                 this.JTFFerramenta.setText("");
                 this.JTFDataDev.setText("");
-
             }
-            /**
-             * System.out.println(this.objEmprestimo.getListaFerramentas().toString());
-             */
         } catch (Mensagem erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         } catch (TextFormat.ParseException ex) {
@@ -404,19 +429,29 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
         } finally {
             carregaTabelaFerramentas();
         }
+
+        /**
+         * Verifica se há uma linha selecionada na tabela. Se houver, obtém o
+         * nome da ferramenta da célula selecionada e define o texto do campo
+         * JTFFerramenta com esse nome.
+         */
     }//GEN-LAST:event_JBCadastrarActionPerformed
 
     private void JBAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAdicionarActionPerformed
-        // TODO add your handling code here:
+        /**
+         * Verifica se há uma linha selecionada na tabela. Se não houver, exibe
+         * uma mensagem de erro. Se houver uma linha selecionada, obtém o ID da
+         * ferramenta dessa linha e verifica se esse ID já está na lista de
+         * ferramentas selecionadas. Se não estiver, adiciona o ID à lista e
+         * exibe uma mensagem de sucesso. Caso contrário, exibe uma mensagem
+         * informando que a ferramenta já foi adicionada anteriormente.
+         */
         if (this.jTable.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Primeiro Selecione uma Ferramenta");
         } else {
             if (this.jTable.getSelectedRow() != -1) {
                 String id = this.jTable.getValueAt(this.jTable.getSelectedRow(), 0).toString();
                 if (!FerSelect.contains(id)) {
-                    /**
-                     * Verifica se o número já está na lista
-                     */
                     FerSelect.add(id);
                     System.out.println("Selecionados: " + FerSelect);
                     JOptionPane.showMessageDialog(null, "Ferramenta adicionada com sucesso!");
@@ -426,16 +461,18 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_JBAdicionarActionPerformed
-
+    /**
+     * Método principal que inicializa a interface gráfica do formulário de
+     * cadastro de empréstimos. É chamado pelo método main da aplicação para
+     * iniciar a execução da interface.
+     */
     public static void main(String args[]) {
-
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmCadastroEmprestimos().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBAdicionar;
     private javax.swing.JButton JBCadastrar;
