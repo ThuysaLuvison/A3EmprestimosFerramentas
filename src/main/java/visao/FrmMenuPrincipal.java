@@ -141,7 +141,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
          * Cria uma instância do formulário de cadastro de amigos e o torna
          * visível.
          */
-        FrmCadastroAmigos objeto = new FrmCadastroAmigos();
+        FrmCadastroAmigo objeto = new FrmCadastroAmigo();
         objeto.setVisible(true);
     }//GEN-LAST:event_jMenuItemAmigosActionPerformed
 
@@ -150,7 +150,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
          * Cria uma instância do formulário de cadastro de ferramentas e o torna
          * visível.
          */
-        FrmCadastroFerramentas objeto = new FrmCadastroFerramentas();
+        FrmCadastroFerramenta objeto = new FrmCadastroFerramenta();
         objeto.setVisible(true);
     }//GEN-LAST:event_jMenuItemFerramentasActionPerformed
 
@@ -159,7 +159,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
          * Cria uma instância do formulário de cadastro de empréstimos e o torna
          * visível.
          */
-        FrmCadastroEmprestimos objeto = new FrmCadastroEmprestimos();
+        FrmCadastroEmprestimo objeto = new FrmCadastroEmprestimo();
         objeto.setVisible(true);
     }//GEN-LAST:event_jMenuItemEmpréstimosActionPerformed
 
@@ -168,7 +168,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
          * Cria uma instância do formulário de relatório de empréstimos ativos e
          * o torna visível.
          */
-        FrmRelatorioAtivos objeto = new FrmRelatorioAtivos();
+        FrmRelatorioAtivo objeto = new FrmRelatorioAtivo();
         objeto.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -177,7 +177,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
          * Cria uma instância do formulário de relatório de empréstimos
          * pendentes e o torna visível.
          */
-        FrmRelatorioPendentes objeto = new FrmRelatorioPendentes();
+        FrmRelatorioPendente objeto = new FrmRelatorioPendente();
         objeto.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
@@ -186,7 +186,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
          * Cria uma instância do formulário de relatório de empréstimos totais e
          * o torna visível.
          */
-        FrmRelatorioTotais objeto = new FrmRelatorioTotais();
+        FrmRelatorioTotal objeto = new FrmRelatorioTotal();
         objeto.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
     /**
