@@ -15,7 +15,7 @@ import modelo.Util;
 /**
  * JFrame para exibir o relatório de empréstimos ativos.
  */
-public class FrmRelatorioAtivos extends javax.swing.JFrame {
+public class FrmRelatorioAtivo extends javax.swing.JFrame {
 
     private Emprestimo objetoEmprestimo;
     private EmprestimoDAO dao;
@@ -25,7 +25,7 @@ public class FrmRelatorioAtivos extends javax.swing.JFrame {
      * cria um objeto Emprestimo e um objeto EmprestimoDAO, e carrega a tabela
      * de empréstimos ativos.
      */
-    public FrmRelatorioAtivos() {
+    public FrmRelatorioAtivo() {
         initComponents();
         this.objetoEmprestimo = new Emprestimo();
         this.dao = new EmprestimoDAO();
@@ -81,15 +81,12 @@ public class FrmRelatorioAtivos extends javax.swing.JFrame {
         JTFDataEmp.setEditable(false);
         JTFDataEmp.setBackground(new java.awt.Color(255, 255, 255));
         JTFDataEmp.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
-        JTFDataEmp.setForeground(new java.awt.Color(0, 0, 0));
         JTFDataEmp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel4.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         jLabel4.setText("Empréstimo:");
 
-        JTFDataDev.setBackground(new java.awt.Color(255, 255, 255));
         JTFDataDev.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
-        JTFDataDev.setForeground(new java.awt.Color(0, 0, 0));
         JTFDataDev.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jTable.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -295,7 +292,7 @@ public class FrmRelatorioAtivos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Informe um número válido.");
 
         } catch (TextFormat.ParseException | ParseException ex) {
-            Logger.getLogger(FrmRelatorioTotais.class
+            Logger.getLogger(FrmRelatorioTotal.class
                     .getName()).log(Level.SEVERE, null, ex);
         } finally {
             carregaTabelaEmprestimos();
@@ -315,7 +312,7 @@ public class FrmRelatorioAtivos extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmRelatorioAtivos().setVisible(true);
+                new FrmRelatorioAtivo().setVisible(true);
             }
         });
     }

@@ -15,7 +15,7 @@ import modelo.Util;
 /**
  * Classe que representa a janela de relatório de empréstimos pendentes.
  */
-public class FrmRelatorioPendentes extends javax.swing.JFrame {
+public class FrmRelatorioPendente extends javax.swing.JFrame {
 
     // Objeto para armazenar o empréstimo atual
     private Emprestimo objetoEmprestimo;
@@ -27,7 +27,7 @@ public class FrmRelatorioPendentes extends javax.swing.JFrame {
      * Construtor da classe FrmRelatorioPendentes. Inicializa os componentes da
      * interface gráfica e carrega a tabela de empréstimos pendentes.
      */
-    public FrmRelatorioPendentes() {
+    public FrmRelatorioPendente() {
         initComponents();
         this.objetoEmprestimo = new Emprestimo();
         this.dao = new EmprestimoDAO();
@@ -83,15 +83,12 @@ public class FrmRelatorioPendentes extends javax.swing.JFrame {
         JTFDataEmp.setEditable(false);
         JTFDataEmp.setBackground(new java.awt.Color(255, 255, 255));
         JTFDataEmp.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        JTFDataEmp.setForeground(new java.awt.Color(0, 0, 0));
         JTFDataEmp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel4.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         jLabel4.setText("Empréstimo:");
 
-        JTFDataDev.setBackground(new java.awt.Color(255, 255, 255));
         JTFDataDev.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        JTFDataDev.setForeground(new java.awt.Color(0, 0, 0));
         JTFDataDev.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jTable.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -302,7 +299,7 @@ public class FrmRelatorioPendentes extends javax.swing.JFrame {
         } catch (NumberFormatException erro2) {
             JOptionPane.showMessageDialog(null, "Informe um número válido.");
         } catch (TextFormat.ParseException | ParseException ex) {
-            Logger.getLogger(FrmRelatorioTotais.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmRelatorioTotal.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             carregaTabelaEmprestimos();
         }
@@ -321,7 +318,7 @@ public class FrmRelatorioPendentes extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmRelatorioPendentes().setVisible(true);
+                new FrmRelatorioPendente().setVisible(true);
             }
         });
     }

@@ -18,7 +18,7 @@ import modelo.Emprestimo;
 import modelo.Ferramenta;
 import modelo.Util;
 
-public class FrmCadastroEmprestimos extends javax.swing.JFrame {
+public class FrmCadastroEmprestimo extends javax.swing.JFrame {
 
     /**
      * Declaração de variáveis de controle e instâncias de DAOs e objetos
@@ -34,7 +34,7 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
     /**
      * Construtor da classe
      */
-    public FrmCadastroEmprestimos() {
+    public FrmCadastroEmprestimo() {
         initComponents();
         String data = Util.dataAtual().toString();
         JTFDataEmp.setText(data);
@@ -116,7 +116,6 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
         JTFDataEmp.setEditable(false);
         JTFDataEmp.setBackground(new java.awt.Color(255, 255, 255));
         JTFDataEmp.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
-        JTFDataEmp.setForeground(new java.awt.Color(0, 0, 0));
         JTFDataEmp.setBorder(null);
 
         JCBAmigo.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
@@ -131,9 +130,7 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         jLabel3.setText("Data de Devolução:");
 
-        JTFDataDev.setBackground(new java.awt.Color(255, 255, 255));
         JTFDataDev.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
-        JTFDataDev.setForeground(new java.awt.Color(0, 0, 0));
         JTFDataDev.setText("yyyy-MM-dd");
         JTFDataDev.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         JTFDataDev.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -150,7 +147,6 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
         JTFFerramenta.setEditable(false);
         JTFFerramenta.setBackground(new java.awt.Color(255, 255, 255));
         JTFFerramenta.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
-        JTFFerramenta.setForeground(new java.awt.Color(0, 0, 0));
         JTFFerramenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
@@ -159,7 +155,6 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
         JTFAmigo.setEditable(false);
         JTFAmigo.setBackground(new java.awt.Color(255, 255, 255));
         JTFAmigo.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
-        JTFAmigo.setForeground(new java.awt.Color(0, 0, 0));
         JTFAmigo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jTable.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -423,9 +418,9 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
         } catch (Mensagem erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         } catch (TextFormat.ParseException ex) {
-            Logger.getLogger(FrmCadastroEmprestimos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmCadastroEmprestimo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (java.text.ParseException ex) {
-            Logger.getLogger(FrmCadastroEmprestimos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmCadastroEmprestimo.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             carregaTabelaFerramentas();
         }
@@ -469,7 +464,7 @@ public class FrmCadastroEmprestimos extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCadastroEmprestimos().setVisible(true);
+                new FrmCadastroEmprestimo().setVisible(true);
             }
         });
     }

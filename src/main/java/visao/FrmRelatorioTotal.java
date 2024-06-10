@@ -9,7 +9,7 @@ import modelo.Emprestimo;
 /**
  * Classe que representa a janela de relatório de totais de empréstimos.
  */
-public class FrmRelatorioTotais extends javax.swing.JFrame {
+public class FrmRelatorioTotal extends javax.swing.JFrame {
 
     // DAO para acessar os empréstimos
     private EmprestimoDAO dao;
@@ -21,7 +21,7 @@ public class FrmRelatorioTotais extends javax.swing.JFrame {
      * Construtor da classe FrmRelatorioTotais. Inicializa os componentes da
      * interface gráfica e carrega a tabela de empréstimos.
      */
-    public FrmRelatorioTotais() {
+    public FrmRelatorioTotal() {
         initComponents();
         this.dao = new EmprestimoDAO();
         this.objetoEmprestimo = new Emprestimo();
@@ -200,7 +200,7 @@ public class FrmRelatorioTotais extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmRelatorioTotais().setVisible(true);
+                new FrmRelatorioTotal().setVisible(true);
             }
         });
     }
