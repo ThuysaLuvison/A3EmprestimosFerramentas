@@ -268,7 +268,9 @@ public class EmprestimoDAO {
              * Executa a consulta SQL para obter os empréstimos que ainda não
              * foram entregues
              */
-            ResultSet res = stmt.executeQuery("SELECT * FROM tb_emprestimos WHERE entregue is false");
+            ResultSet res = stmt.executeQuery("SELECT * FROM tb_emprestimos \n"
+                    + "WHERE data_emprestimo <= data_devolucao \n"
+                    + "  AND entregue = FALSE;");
             /**
              * Itera sobre o resultado da consulta
              */
@@ -413,6 +415,7 @@ public class EmprestimoDAO {
         }
         return ListaEmprestimosPendentes;
     }
+
     public String valorTotal() {
         double soma = 0;
 
