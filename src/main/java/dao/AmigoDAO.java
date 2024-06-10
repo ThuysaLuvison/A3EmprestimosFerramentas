@@ -11,7 +11,6 @@ import modelo.Amigo;
  * Classe responsável pelo acesso aos dados dos amigos no banco de dados.
  * Fornece dados para carregar, inserir, atualizar e excluir amigos.
  *
- * @author joaopedrofariasdasilva
  */
 public class AmigoDAO {
 

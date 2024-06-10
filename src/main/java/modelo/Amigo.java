@@ -9,7 +9,6 @@ import java.util.ArrayList;
  * Fornece métodos para manipulação de objetos amigo e operações no banco de
  * dados.
  *
- * @author joaopedrofariasdasilva
  */
 public class Amigo {
 

@@ -13,7 +13,6 @@ import modelo.Amigo;
  * Classe responsável por permitir o cadastro, alteração, exclusão e
  * visualização de amigos.
  *
- * @author joaopedrofariasdasilva
  */
 public class FrmCadastroAmigo extends javax.swing.JFrame {
 
