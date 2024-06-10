@@ -22,7 +22,9 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
      * Objeto da classe Ferramenta para manipulação dos dados.
      */
     private Ferramenta objetoferramenta;
-
+    /**
+     * Objeto da classe Ferramenta para manipulação dos dados.
+     */
     private FerramentaDAO dao;
     /**
      * Conexão com o banco de dados.
@@ -146,8 +148,10 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         jLabel5.setText("Preço total");
 
+        LValorTotal.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         LValorTotal.setText("0.0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -288,6 +292,9 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
         } catch (NumberFormatException erro2) {
             JOptionPane.showMessageDialog(null, "Informe um número válido.");
         }
+        /**
+         * Atualiza a tabela e o valor total das ferramentas.
+         */
         this.carregaTabela();
         LValorTotal.setText("R$" + dao.valorTotal());
     }//GEN-LAST:event_b_cadastrarActionPerformed
@@ -382,9 +389,10 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
         } finally {
 
             /**
-             * Atualiza a tabela.
+             * Atualiza a tabela e o valor total das ferramentas.
              */
             carregaTabela();
+            LValorTotal.setText("R$" + dao.valorTotal());
         }
     }//GEN-LAST:event_b_alterarActionPerformed
     /**
@@ -449,10 +457,10 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         } finally {
             /**
-             * Chama o método carregaTabela() para atualizar a tabela mesmo em
-             * caso de erro.
+             * Atualiza a tabela e o valor total das ferramentas.
              */
             carregaTabela();
+            LValorTotal.setText("R$" + dao.valorTotal());
         }
     }//GEN-LAST:event_b_apagarActionPerformed
     /**

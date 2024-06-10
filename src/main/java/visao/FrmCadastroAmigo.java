@@ -35,7 +35,7 @@ public class FrmCadastroAmigo extends javax.swing.JFrame {
     public FrmCadastroAmigo() {
         initComponents();
         /**
-         * Carrega objeto vazio de ferramenta.
+         * Carrega objeto vazio de amigo.
          */
         this.objetoamigo = new Amigo();
         /**
@@ -236,7 +236,7 @@ public class FrmCadastroAmigo extends javax.swing.JFrame {
                 this.JTFTelefone.setText("");
             }
             /**
-             * Exibe no console o ferramenta cadastrado.
+             * Exibe no console o amigo cadastrado.
              */
             System.out.println(this.objetoamigo.getMinhaLista().toString());
 
@@ -278,7 +278,7 @@ public class FrmCadastroAmigo extends javax.swing.JFrame {
             }
 
             /**
-             * Envia os dados para a ferramenta processar.
+             * Envia os dados para a amigo processar.
              */
             if (this.objetoamigo.updateAmigoBD(id, nome, telefone)) {
 
@@ -291,7 +291,7 @@ public class FrmCadastroAmigo extends javax.swing.JFrame {
 
             }
             /**
-             * Exibe no console a ferramenta cadastrada.
+             * Exibe no console a amigo cadastrada.
              */
             System.out.println(this.objetoamigo.getMinhaLista().toString());
         } catch (Mensagem erro) {
@@ -396,7 +396,7 @@ public class FrmCadastroAmigo extends javax.swing.JFrame {
          */
         modelo.setNumRows(0);
         /**
-         * Carrega a lista de objetos ferramenta.
+         * Carrega a lista de objetos amigo.
          */
         ArrayList<Amigo> minhaLista = objetoamigo.getMinhaLista();
         for (Amigo a : minhaLista) {
