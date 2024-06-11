@@ -233,12 +233,16 @@ public class FrmRelatorioAtivo extends javax.swing.JFrame {
          */
         try {
             int id = 0;
-            // Verifica se foi selecionada uma linha na tabela
+            /**
+             * Verifica se foi selecionada uma linha na tabela.
+             */
             if (this.jTable.getSelectedRow() == -1) {
                 throw new Mensagem(
                         "Primeiro Selecione um Empréstimo para ALTERAR");
             } else {
-                // Obtém o ID do empréstimo selecionado na tabela
+                /**
+                 * Obtém o ID do empréstimo selecionado na tabela.
+                 */
                 id = Integer.parseInt(this.jTable.getValueAt(this.jTable.getSelectedRow(), 0).toString());
             }
 
@@ -247,10 +251,14 @@ public class FrmRelatorioAtivo extends javax.swing.JFrame {
             Date dataEmprestimo = Util.stringParaDateSQL(JTFDataEmp.getText());
             boolean Entregue = false;
 
-            // Verifica se a data de devolução está no formato correto
+            /**
+             * Verifica se a data de devolução está no formato correto.
+             */
             if (this.JTFDataDev.getText().matches(regex)) {
                 dataDevolucao = Util.stringParaDateSQL(JTFDataDev.getText());
-                // Verifica se a data de devolução é válida
+                /**
+                 * Verifica se a data de devolução é válida.
+                 */
                 if (dataDevolucao.before(dataEmprestimo)) {
                     dataDevolucao = null;
                     throw new Mensagem("Data de Devolução não pode ser antes da Data do Empréstimo");
@@ -264,7 +272,9 @@ public class FrmRelatorioAtivo extends javax.swing.JFrame {
             } else {
                 throw new Mensagem("Data de Devolução deve conter o seguinte formato:\nyyyy-MM-dd");
             }
-            // Verifica se o empréstimo foi entregue
+            /**
+             * Verifica se o empréstimo foi entregue.
+             */
             if (JCBEntregue.isSelected()) {
                 int respostaUsuario = JOptionPane.showConfirmDialog(null, "Tem certeza que este Empréstimo foi finalizado?");
 
@@ -279,7 +289,9 @@ public class FrmRelatorioAtivo extends javax.swing.JFrame {
                 }
             }
 
-            // Altera o empréstimo no banco de dados
+            /**
+             * Altera o empréstimo no banco de dados.
+             */
             if (this.objetoEmprestimo.alterarEmprestimo(dataDevolucao, Entregue, id)) {
                 this.JTFDataDev.setText("");
                 this.JCBEntregue.setSelected(false);
@@ -300,7 +312,9 @@ public class FrmRelatorioAtivo extends javax.swing.JFrame {
     }//GEN-LAST:event_JBAlterarActionPerformed
 
     private void JBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCancelarActionPerformed
-        // Fecha a janela atual
+        /**
+         * Fecha a janela atual.
+         */
         this.dispose();
     }//GEN-LAST:event_JBCancelarActionPerformed
     /**

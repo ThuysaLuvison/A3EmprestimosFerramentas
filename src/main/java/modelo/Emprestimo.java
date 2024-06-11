@@ -26,11 +26,11 @@ public class Emprestimo {
     /**
      * Construtor sobrecarregado da classe Emprestimo.
      *
-     * @param dataEmprestimo Data do empréstimo.
-     * @param dataDevolucao Data prevista de devolução.
-     * @param entregue Indica se o item emprestado foi devolvido.
-     * @param id Identificador do empréstimo.
-     * @param idAmg Identificador do amigo relacionado.
+     * @param dataEmprestimo - Data do empréstimo.
+     * @param dataDevolucao - Data prevista de devolução.
+     * @param entregue - Indica se o item emprestado foi devolvido.
+     * @param id - Identificador do empréstimo.
+     * @param idAmg - Identificador do amigo relacionado.
      */
     public Emprestimo(Date dataEmprestimo, Date dataDevolucao, boolean entregue, int id, int idAmg) {
         this.dataEmprestimo = dataEmprestimo;
@@ -43,7 +43,7 @@ public class Emprestimo {
     /**
      * Retorna a data do empréstimo.
      *
-     * @return Data do empréstimo.
+     * @return - Data do empréstimo.
      */
     public Date getDataEmprestimo() {
         return dataEmprestimo;
@@ -52,7 +52,7 @@ public class Emprestimo {
     /**
      * Define a data do empréstimo.
      *
-     * @param dataEmprestimo Data do empréstimo.
+     * @param dataEmprestimo - Data do empréstimo.
      */
     public void setDataEmprestimo(Date dataEmprestimo) {
         this.dataEmprestimo = dataEmprestimo;
@@ -61,7 +61,7 @@ public class Emprestimo {
     /**
      * Retorna a data de devolução.
      *
-     * @return Data de devolução.
+     * @return - Data de devolução.
      */
     public Date getDataDevolucao() {
         return dataDevolucao;
@@ -70,7 +70,7 @@ public class Emprestimo {
     /**
      * Define a data de devolução.
      *
-     * @param dataDevolucao Data de devolução.
+     * @param dataDevolucao - Data de devolução.
      */
     public void setDataDevolucao(Date dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
@@ -79,7 +79,7 @@ public class Emprestimo {
     /**
      * Verifica se o item foi devolvido.
      *
-     * @return True se foi devolvido, false caso contrário.
+     * @return - Verdadeiro se foi devolvido, falso caso contrário.
      */
     public boolean isEntregue() {
         return entregue;
@@ -88,7 +88,7 @@ public class Emprestimo {
     /**
      * Define se o item foi devolvido.
      *
-     * @param entregue Status de devolução.
+     * @param entregue - Status de devolução.
      */
     public void setEntregue(boolean entregue) {
         this.entregue = entregue;
@@ -97,7 +97,7 @@ public class Emprestimo {
     /**
      * Retorna o ID do empréstimo.
      *
-     * @return ID do empréstimo.
+     * @return - ID do empréstimo.
      */
     public int getId() {
         return id;
@@ -106,7 +106,7 @@ public class Emprestimo {
     /**
      * Define o ID do empréstimo.
      *
-     * @param id ID do empréstimo.
+     * @param id - ID do empréstimo.
      */
     public void setId(int id) {
         this.id = id;
@@ -115,7 +115,7 @@ public class Emprestimo {
     /**
      * Retorna o ID do amigo relacionado.
      *
-     * @return ID do amigo.
+     * @return - ID do amigo.
      */
     public int getIdAmg() {
         return idAmg;
@@ -124,7 +124,7 @@ public class Emprestimo {
     /**
      * Define o ID do amigo relacionado.
      *
-     * @param idAmg ID do amigo.
+     * @param idAmg - ID do amigo.
      */
     public void setIdAmg(int idAmg) {
         this.idAmg = idAmg;
@@ -133,7 +133,7 @@ public class Emprestimo {
     /**
      * Método para obter a lista de empréstimos do banco de dados.
      *
-     * @return Lista de empréstimos.
+     * @return - Lista de empréstimos.
      */
     public ArrayList<Emprestimo> getListaEmprestimos() {
         return dao.getMinhaLista();
@@ -142,11 +142,12 @@ public class Emprestimo {
     /**
      * Método para inserir um novo empréstimo no banco de dados.
      *
-     * @param dataEmprestimo Data do empréstimo.
-     * @param dataDevolucao Data de devolução.
-     * @param entregue Status de devolução.
-     * @param idAmg ID do amigo relacionado.
-     * @return True se a inserção foi bem-sucedida, false caso contrário.
+     * @param dataEmprestimo - Data do empréstimo.
+     * @param dataDevolucao - Data de devolução.
+     * @param entregue - Status de devolução.
+     * @param idAmg - ID do amigo relacionado.
+     * @return - Verdadeiro se a inserção foi bem-sucedida, falso caso
+     * contrário.
      */
     public boolean inserirEmprestimo(Date dataEmprestimo, Date dataDevolucao, boolean entregue, int idAmg) {
         id = dao.maiorId() + 1;
@@ -158,8 +159,9 @@ public class Emprestimo {
     /**
      * Método para apagar um empréstimo do banco de dados.
      *
-     * @param id ID do empréstimo a ser apagado.
-     * @return True se a exclusão foi bem-sucedida, false caso contrário.
+     * @param id - ID do empréstimo a ser apagado.
+     * @return - Verdadeiro se a exclusão foi bem-sucedida, falso caso
+     * contrário.
      */
     public boolean apagarEmprestimo(int id) {
         dao.apagarEmprestimoBD(id);
@@ -169,10 +171,11 @@ public class Emprestimo {
     /**
      * Método para alterar os dados de um empréstimo no banco de dados.
      *
-     * @param dataDevolucao Nova data de devolução.
-     * @param entregue Novo status de devolução.
-     * @param id ID do empréstimo a ser alterado.
-     * @return True se a alteração foi bem-sucedida, false caso contrário.
+     * @param dataDevolucao - Nova data de devolução.
+     * @param entregue - Novo status de devolução.
+     * @param id - ID do empréstimo a ser alterado.
+     * @return - Verdadeiro se a alteração foi bem-sucedida, falso caso
+     * contrário.
      */
     public boolean alterarEmprestimo(Date dataDevolucao, boolean entregue, int id) {
         Emprestimo objeto = new Emprestimo(dataEmprestimo, dataDevolucao, entregue, id, idAmg);
@@ -183,8 +186,8 @@ public class Emprestimo {
     /**
      * Método para carregar os dados de um empréstimo do banco de dados.
      *
-     * @param id ID do empréstimo a ser carregado.
-     * @return Objeto Emprestimo correspondente.
+     * @param id - ID do empréstimo a ser carregado.
+     * @return - Objeto Emprestimo correspondente.
      */
     public Emprestimo carregarEmprestimo(int id) {
         return dao.carregarEmprestimoBD(id);

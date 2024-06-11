@@ -51,8 +51,9 @@ public class ConexaoDataBaseDAO {
         }
         return conexao;
     }
-     public PreparedStatement prepareStatement(String query) { 
+
+    public PreparedStatement prepareStatement(String query) {
         return null;
     }
-     
+
 }

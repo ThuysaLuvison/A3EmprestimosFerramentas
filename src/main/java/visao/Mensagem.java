@@ -1,9 +1,9 @@
 package visao;
 
 /**
- * Classe de exceção personalizada para mensagens específicas.
- * Permite a criação de exceções personalizadas com mensagens específicas. 
- * Esta classe é utilizada para lançar mensagens de erro em situações específicas.
+ * Classe de exceção personalizada para mensagens específicas. Permite a criação
+ * de exceções personalizadas com mensagens específicas. Esta classe é utilizada
+ * para lançar mensagens de erro em situações específicas.
  */
 public class Mensagem extends Exception {
 

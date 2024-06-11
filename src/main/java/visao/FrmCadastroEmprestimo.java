@@ -18,10 +18,15 @@ import modelo.Emprestimo;
 import modelo.Ferramenta;
 import modelo.Util;
 
+/**
+ * FrmCadastroEmprestimo é uma classe que representa a interface gráfica para o
+ * cadastro de empréstimos de ferramentas. Extende javax.swing.JFrame para criar
+ * uma janela de aplicativo.
+ */
 public class FrmCadastroEmprestimo extends javax.swing.JFrame {
 
     /**
-     * Declaração de variáveis de controle e instâncias de DAOs e objetos
+     * Declaração de variáveis de controle e instâncias de DAOs e objetos.
      */
     private AmigoDAO daoAmg;
     private FerramentaDAO dao;
@@ -32,7 +37,7 @@ public class FrmCadastroEmprestimo extends javax.swing.JFrame {
     public ArrayList<String> FerSelect;
 
     /**
-     * Construtor da classe
+     * Construtor da classe.
      */
     public FrmCadastroEmprestimo() {
         initComponents();
@@ -54,20 +59,27 @@ public class FrmCadastroEmprestimo extends javax.swing.JFrame {
      */
     private void preencherComboBox() {
         try {
-            // Consulta SQL para obter os nomes dos amigos.
+            /**
+             * Consulta SQL para obter os nomes dos amigos.
+             */
             String query = "SELECT nome FROM tb_amigos";
             PreparedStatement statement = db.getConexao().prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 
-            // Adiciona os nomes dos amigos no ComboBox.
+            /**
+             * Adiciona os nomes dos amigos no ComboBox.
+             */
             while (resultSet.next()) {
                 String nome = resultSet.getString("nome");
                 JCBAmigo.addItem(nome);
             }
 
         } catch (SQLException ex) {
+            /**
+             * Lidar com exceções adequadamente.
+             */
             System.out.println("Erro:" + ex);
-            // Lidar com exceções adequadamente.
+
         }
     }
 
@@ -75,10 +87,14 @@ public class FrmCadastroEmprestimo extends javax.swing.JFrame {
      * Método para carregar a tabela de ferramentas disponíveis.
      */
     private void carregaTabelaFerramentas() {
-        // Define o modelo da tabela e zera o número de linhas.
+        /**
+         * Define o modelo da tabela e zera o número de linhas.
+         */
         DefaultTableModel modelo = (DefaultTableModel) this.jTable.getModel();
         modelo.setNumRows(0);
-        // Adiciona as ferramentas disponíveis no modelo da tabela.
+        /**
+         * Adiciona as ferramentas disponíveis no modelo da tabela.
+         */
         for (Ferramenta a : dao.getFerramentasDisponiveis()) {
             modelo.addRow(new Object[]{
                 a.getNome()});
@@ -348,7 +364,9 @@ public class FrmCadastroEmprestimo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableAncestorAdded
 
     private void JBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCancelarActionPerformed
-        // Fecha a janela atual
+        /**
+         * Fecha a janela atual.
+         */
         this.dispose();
     }//GEN-LAST:event_JBCancelarActionPerformed
 
@@ -357,27 +375,38 @@ public class FrmCadastroEmprestimo extends javax.swing.JFrame {
          * Tenta realizar o cadastro do empréstimo com base nos dados fornecidos
          * pelo usuário.
          *
-         * @throws Mensagem Se ocorrer algum erro durante o cadastro do
+         * @throws - Mensagem Se ocorrer algum erro durante o cadastro do
          * empréstimo.
          */
         try {
-            // Expressão regular para validar o formato da data
+            /**
+             * Expressão regular para validar o formato da data.
+             */
             String regex = "\\d{4}-\\d{2}-\\d{2}";
             int idAmg = 0;
             Date dataEmprestimo = Util.dataAtual();
             boolean entregue = false;
             Date dataDevolucao = null;
 
-            // Verifica se foi selecionado um amigo
+            /**
+             * Verifica se foi selecionado um amigo.
+             */
             if ("".equals(this.JTFAmigo.getText())) {
                 throw new Mensagem("Primeiro selecione um Amigo.");
             } else {
-                // Obtém o ID do amigo selecionado
+                /**
+                 * Obtém o ID do amigo selecionado.
+                 */
                 idAmg = AmigoDAO.getIdPeloNome(JTFAmigo.getText());
-                // Verifica se o amigo possui empréstimos pendentes
+                /**
+                 * Verifica se o amigo possui empréstimos pendentes.
+                 */
                 boolean Ver = daoAmg.verificarPendencia(idAmg);
                 if (Ver == true) {
-                    // Exibe um diálogo de confirmação se o amigo tem empréstimos pendentes
+                    /**
+                     * Exibe um diálogo de confirmação se o amigo tem
+                     * empréstimos pendentes.
+                     */
                     int respostaUsuario = JOptionPane.showConfirmDialog(null, "Esse amigo tem empréstimos pendentes. Deseja continuar?");
 
                     if (respostaUsuario != 0) {
@@ -386,12 +415,16 @@ public class FrmCadastroEmprestimo extends javax.swing.JFrame {
                 }
             }
 
-            // Verifica se foi selecionada pelo menos uma ferramenta
+            /**
+             * Verifica se foi selecionada pelo menos uma ferramenta.
+             */
             if (FerSelect.size() == 0) {
                 throw new Mensagem("Primeiro selecione pelo menos uma Ferramenta");
             }
 
-            // Verifica se a data de devolução foi inserida no formato correto
+            /**
+             * Verifica se a data de devolução foi inserida no formato correto.
+             */
             if (this.JTFDataDev.getText().matches(regex)) {
                 dataDevolucao = Util.stringParaDateSQL(JTFDataDev.getText());
                 if (dataDevolucao.before(dataEmprestimo)) {
@@ -408,7 +441,9 @@ public class FrmCadastroEmprestimo extends javax.swing.JFrame {
                 throw new Mensagem("Data de Devolução deve conter o seguinte formato:\nyyyy-MM-dd");
             }
 
-            // Insere o empréstimo no banco de dados
+            /**
+             * Insere o empréstimo no banco de dados.
+             */
             if (this.objetoEmprestimo.inserirEmprestimo(dataEmprestimo, dataDevolucao, entregue, idAmg)) {
                 JOptionPane.showMessageDialog(rootPane, "Empréstimo Cadastrado com Sucesso!");
                 this.JTFAmigo.setText("");

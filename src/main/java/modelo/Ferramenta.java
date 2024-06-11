@@ -3,6 +3,10 @@ package modelo;
 import dao.FerramentaDAO;
 import java.util.ArrayList;
 
+/**
+ * Classe Ferramenta representa uma ferramenta com suas propriedades e métodos
+ * para manipulação.
+ */
 public class Ferramenta {
 
     /**

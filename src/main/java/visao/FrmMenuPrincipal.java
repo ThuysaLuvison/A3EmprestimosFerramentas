@@ -201,8 +201,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         /**
-         * Cria uma instância do formulário de relatório de mais empréstimos e
-         * o torna visível.
+         * Cria uma instância do formulário de relatório de mais empréstimos e o
+         * torna visível.
          */
         FrmRelatorioMaisEmprestimo objeto = new FrmRelatorioMaisEmprestimo();
         objeto.setVisible(true);
@@ -211,10 +211,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
      * Método principal da aplicação, responsável por configurar o look and feel
      * e iniciar o formulário principal.
      *
-     * @param args os argumentos da linha de comando
+     * @param args - Os argumentos da linha de comando.
      */
     public static void main(String args[]) {
-        /* Configura a aparência Nimbus (opcional) */
+        /**
+         * Configura a aparência Nimbus.
+         */
         //<editor-fold defaultstate="collapsed" desc=" Configuração do look and feel ">
         /* Se o Nimbus (introduzido no Java SE 6) não estiver disponível, mantenha o visual padrão.
      * Para detalhes, consulte http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
@@ -237,7 +239,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Cria e exibe o formulário */
+        /**
+         * Cria e exibe o formulário.
+         */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmMenuPrincipal().setVisible(true);

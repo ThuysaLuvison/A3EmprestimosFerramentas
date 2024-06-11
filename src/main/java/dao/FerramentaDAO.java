@@ -89,7 +89,8 @@ public class FerramentaDAO {
      * Insere uma nova ferramenta no banco de dados.
      *
      * @param objeto - A ferramenta a ser inserida.
-     * @return - Verdadeiro se a inserção foi bem-sucedida, falso caso contrário.
+     * @return - Verdadeiro se a inserção foi bem-sucedida, falso caso
+     * contrário.
      */
     public boolean insertFerramentaBD(Ferramenta objeto) {
         String sql = "INSERT INTO tb_ferramentas(id_ferramenta,nome,marca,preco) VALUES(?,?,?,?)";
@@ -133,7 +134,8 @@ public class FerramentaDAO {
      * Atualiza os dados de uma ferramenta no banco de dados.
      *
      * @param objeto - A ferramenta com os dados atualizados.
-     * @return - Verdadeiro se a atualização foi bem-sucedida, falso caso contrário.
+     * @return - Verdadeiro se a atualização foi bem-sucedida, falso caso
+     * contrário.
      */
     public boolean updateFerramentaBD(Ferramenta objeto) {
         String sql = "UPDATE tb_ferramentas set nome = ?, marca = ?, preco = ? WHERE id_ferramenta = ?";
@@ -214,7 +216,8 @@ public class FerramentaDAO {
      * Verifica se uma ferramenta está pendente de devolução.
      *
      * @param id - O ID da ferramenta a ser verificada.
-     * @return - Verdadeiro se a ferramenta está emprestada, falso caso contrário.
+     * @return - Verdadeiro se a ferramenta está emprestada, falso caso
+     * contrário.
      */
     public boolean verificarPendencia(int id) {
         try {
@@ -234,10 +237,11 @@ public class FerramentaDAO {
         }
         return false;
     }
+
     /**
      * Método para calcular o valor total de todas as ferramentas.
      *
-     * @return Valor total formatado como String.
+     * @return - Valor total formatado como String.
      */
     public String valorTotal() {
         double soma = 0;

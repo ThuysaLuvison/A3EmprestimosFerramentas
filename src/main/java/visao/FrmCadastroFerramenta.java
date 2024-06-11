@@ -231,7 +231,7 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
      /**
      * Método responsável por cancelar a operação e fechar a janela.
      *
-     * @param evt O evento de clique do botão.
+     * @param evt - O evento de clique do botão.
      */
     private void b_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cancelarActionPerformed
 
@@ -399,12 +399,12 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
      * Método acionado quando o botão "Apagar" é clicado, responsável por
      * excluir uma ferramenta.
      *
-     * @param evt Evento de clique do botão.
+     * @param evt - Evento de clique do botão.
      */
     private void b_apagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_apagarActionPerformed
 
         try {
-            // validando dados da interface gráfica.
+
             /**
              * Verifica se uma ferramenta foi selecionada na tabela.
              */
@@ -468,7 +468,7 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
      * responsável por preencher os campos de texto com os dados da ferramenta
      * selecionada na tabela.
      *
-     * @param evt Evento de clique do mouse na tabela.
+     * @param evt - Evento de clique do mouse na tabela.
      */
     private void JTableFerramentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableFerramentasMouseClicked
 
@@ -520,7 +520,7 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
     /**
      * Método principal que inicializa a aplicação.
      *
-     * @param args Argumentos da linha de comando.
+     * @param args - Argumentos da linha de comando.
      */
     public static void main(String args[]) {
         /**
@@ -572,9 +572,7 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
             }
         });
     }
-    /**
-     * Declaração de variáveis - não modificar.
-     */
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField JTFCusto;
     private javax.swing.JTextField JTFFerramenta;
@@ -594,7 +592,5 @@ public class FrmCadastroFerramenta extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
-    /**
-     * Fim da declaração de variáveis.
-     */
+
 }

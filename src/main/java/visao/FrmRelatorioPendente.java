@@ -17,10 +17,14 @@ import modelo.Util;
  */
 public class FrmRelatorioPendente extends javax.swing.JFrame {
 
-    // Objeto para armazenar o empréstimo atual
+    /**
+     * Objeto para armazenar o empréstimo atual.
+     */
     private Emprestimo objetoEmprestimo;
 
-    // DAO para acessar os empréstimos
+    /**
+     * DAO para acessar os empréstimos.
+     */
     private EmprestimoDAO dao;
 
     /**
@@ -49,7 +53,9 @@ public class FrmRelatorioPendente extends javax.swing.JFrame {
                 a.isEntregue()});
         }
 
-        // Define a largura das colunas da tabela
+        /**
+         * Define a largura das colunas da tabela.
+         */
         jTable.getColumn("ID").setPreferredWidth(50);
         jTable.getColumn("ID_Amg").setPreferredWidth(50);
         jTable.getColumn("Data_Empréstimo").setPreferredWidth(140);
@@ -225,11 +231,17 @@ public class FrmRelatorioPendente extends javax.swing.JFrame {
          * valores da linha selecionada.
          */
         if (this.jTable.getSelectedRow() != -1) {
-            // Obtém a data de devolução da linha selecionada e a define no campo de texto JTFDataDev
+            /**
+             * Obtém a data de devolução da linha selecionada e a define no
+             * campo de texto JTFDataDev.
+             */
             String dataDev = this.jTable.getValueAt(this.jTable.getSelectedRow(), 3).toString();
             String dataEmp = this.jTable.getValueAt(this.jTable.getSelectedRow(), 2).toString();
 
-            // Obtém a data de empréstimo da linha selecionada e a define no campo de texto JTFDataEmp
+            /**
+             * Obtém a data de empréstimo da linha selecionada e a define no
+             * campo de texto JTFDataEmp.
+             */
             this.JTFDataDev.setText(dataDev);
             this.JTFDataEmp.setText(dataEmp);
         }
@@ -241,12 +253,16 @@ public class FrmRelatorioPendente extends javax.swing.JFrame {
          */
         try {
             int id = 0;
-            // Verifica se foi selecionada uma linha na tabela
+            /**
+             * Verifica se foi selecionada uma linha na tabela.
+             */
             if (this.jTable.getSelectedRow() == -1) {
                 throw new Mensagem(
                         "Primeiro Selecione um Empréstimo para ALTERAR");
             } else {
-                // Obtém o ID do empréstimo selecionado na tabela
+                /**
+                 * Obtém o ID do empréstimo selecionado na tabela.
+                 */
                 id = Integer.parseInt(this.jTable.getValueAt(this.jTable.getSelectedRow(), 0).toString());
             }
 
@@ -255,7 +271,9 @@ public class FrmRelatorioPendente extends javax.swing.JFrame {
             Date dataEmprestimo = Util.stringParaDateSQL(JTFDataEmp.getText());
             boolean Entregue = false;
 
-            // Verifica se a data de devolução está no formato correto
+            /**
+             * Verifica se a data de devolução está no formato correto.
+             */
             if (this.JTFDataDev.getText().matches(regex)) {
                 dataDevolucao = Util.stringParaDateSQL(JTFDataDev.getText());
                 if (dataDevolucao.before(dataEmprestimo)) {
@@ -272,7 +290,9 @@ public class FrmRelatorioPendente extends javax.swing.JFrame {
                 throw new Mensagem("Data de Devolução deve conter o seguite formato:\nyyyy-MM-dd");
             }
 
-            // Verifica se o empréstimo foi entregue
+            /**
+             * Verifica se o empréstimo foi entregue.
+             */
             if (JCBEntregue.isSelected()) {
                 int respostaUsuario = JOptionPane.showConfirmDialog(null, "Tem certeza que este Empréstimo foi finalizado?");
 
@@ -287,7 +307,9 @@ public class FrmRelatorioPendente extends javax.swing.JFrame {
                 }
             }
 
-            // Altera o empréstimo no banco de dados
+            /**
+             * Altera o empréstimo no banco de dados.
+             */
             if (this.objetoEmprestimo.alterarEmprestimo(dataDevolucao, Entregue, id)) {
                 this.JTFDataDev.setText("");
                 this.JCBEntregue.setSelected(false);
@@ -306,7 +328,9 @@ public class FrmRelatorioPendente extends javax.swing.JFrame {
     }//GEN-LAST:event_JBAlterarActionPerformed
 
     private void JBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCancelarActionPerformed
-        // Fecha a janela atual
+        /**
+         * Fecha a janela atual.
+         */
         this.dispose();
     }//GEN-LAST:event_JBCancelarActionPerformed
     /**

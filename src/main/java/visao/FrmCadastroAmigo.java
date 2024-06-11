@@ -360,13 +360,23 @@ public class FrmCadastroAmigo extends javax.swing.JFrame {
          * campos de texto.
          */
         if (this.JTableAmigos.getSelectedRow() != -1) {
-            // Obtém o nome da linha selecionada na JTable e o converte para String.
+            /**
+             * Obtém o nome da linha selecionada na JTable e o converte para
+             * String.
+             */
             String nome = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 1).toString();
-            // Obtém o telefone da linha selecionada na JTable e o converte para String.
+            /**
+             * Obtém o telefone da linha selecionada na JTable e o converte para
+             * String.
+             */
             String telefone = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 2).toString();
-            // Define o valor obtido do nome no campo de texto JTFNome.
+            /**
+             * Define o valor obtido do nome no campo de texto JTFNome.
+             */
             this.JTFNome.setText(nome);
-            // Define o valor obtido do telefone no campo de texto JTFTelefone.
+            /**
+             * Define o valor obtido do telefone no campo de texto JTFTelefone.
+             */
             this.JTFTelefone.setText(telefone);
         }
         /**
@@ -375,15 +385,28 @@ public class FrmCadastroAmigo extends javax.swing.JFrame {
          * numéricos do telefone, e define esses valores nos campos de texto.
          */
         if (this.JTableAmigos.getSelectedRow() != -1) {
-            // Obtém o nome da linha selecionada na JTable e o converte para String.
+            /**
+             * Obtém o nome da linha selecionada na JTable e o converte para
+             * String.
+             */
             String nome = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 1).toString();
-            // Obtém o telefone da linha selecionada na JTable e o converte para String.
+            /**
+             * Obtém o telefone da linha selecionada na JTable e o converte para
+             * String.
+             */
             String telefone = this.JTableAmigos.getValueAt(this.JTableAmigos.getSelectedRow(), 2).toString();
-            // Remove todos os caracteres não numéricos do telefone.
+            /**
+             * Remove todos os caracteres não numéricos do telefone.
+             */
             telefone = telefone.replaceAll("[^0-9]", "");
-            // Define o valor obtido do nome no campo de texto JTFNome.
+            /**
+             * Define o valor obtido do nome no campo de texto JTFNome.
+             */
             this.JTFNome.setText(nome);
-            // Define o valor do telefone (apenas números) no campo de texto JTFTelefone.
+            /**
+             * Define o valor do telefone (apenas números) no campo de texto
+             * JTFTelefone.
+             */
             this.JTFTelefone.setText(telefone);
         }
     }//GEN-LAST:event_JTableAmigosMouseClicked

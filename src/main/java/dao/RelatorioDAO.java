@@ -5,7 +5,8 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * Classe responsável pela manipulação de dados dos relatórios no banco de dados.
+ * Classe responsável pela manipulação de dados dos relatórios no banco de
+ * dados.
  */
 public class RelatorioDAO {
 
@@ -13,7 +14,8 @@ public class RelatorioDAO {
     private ConexaoDataBaseDAO db;
 
     /**
-     * Construtor da classe RelatorioDAO. Inicializa a conexão com o banco de dados.
+     * Construtor da classe RelatorioDAO. Inicializa a conexão com o banco de
+     * dados.
      */
     public RelatorioDAO() {
         this.db = new ConexaoDataBaseDAO();
@@ -25,11 +27,11 @@ public class RelatorioDAO {
      * @return - Retorna a lista de relatórios.
      */
     public ArrayList<Relatorio> getTotais() {
-        String query = "SELECT a.nome AS nome_amigo, f.nome AS nome_ferramenta, a.telefone AS telefone_amigo, f.preco AS preco " +
-                       "FROM tb_emprestimos e " +
-                       "JOIN tb_amigos a ON e.id_amigo = a.id " +
-                       "JOIN tb_ferramentas f ON e.id_ferramenta = f.id " +
-                       "ORDER BY nome_amigo;";
+        String query = "SELECT a.nome AS nome_amigo, f.nome AS nome_ferramenta, a.telefone AS telefone_amigo, f.preco AS preco "
+                + "FROM tb_emprestimos e "
+                + "JOIN tb_amigos a ON e.id_amigo = a.id "
+                + "JOIN tb_ferramentas f ON e.id_ferramenta = f.id "
+                + "ORDER BY nome_amigo;";
         return getRelatorio(query);
     }
 
@@ -39,12 +41,12 @@ public class RelatorioDAO {
      * @return - Retorna a lista de relatórios de empréstimos atrasados.
      */
     public ArrayList<Relatorio> getAtrasados() {
-        String query = "SELECT a.nome AS nome_amigo, f.nome AS nome_ferramenta, a.telefone AS telefone_amigo, f.preco AS preco " +
-                       "FROM tb_emprestimos e " +
-                       "JOIN tb_amigos a ON e.id_amigo = a.id " +
-                       "JOIN tb_ferramentas f ON e.id_ferramenta = f.id " +
-                       "WHERE e.data_limite < NOW() " +
-                       "ORDER BY nome_amigo;";
+        String query = "SELECT a.nome AS nome_amigo, f.nome AS nome_ferramenta, a.telefone AS telefone_amigo, f.preco AS preco "
+                + "FROM tb_emprestimos e "
+                + "JOIN tb_amigos a ON e.id_amigo = a.id "
+                + "JOIN tb_ferramentas f ON e.id_ferramenta = f.id "
+                + "WHERE e.data_limite < NOW() "
+                + "ORDER BY nome_amigo;";
         return getRelatorio(query);
     }
 
@@ -54,12 +56,12 @@ public class RelatorioDAO {
      * @return - Retorna a lista de relatórios de empréstimos ativos.
      */
     public ArrayList<Relatorio> getAtivos() {
-        String query = "SELECT a.nome AS nome_amigo, f.nome AS nome_ferramenta, a.telefone AS telefone_amigo, f.preco AS preco " +
-                       "FROM tb_emprestimos e " +
-                       "JOIN tb_amigos a ON e.id_amigo = a.id " +
-                       "JOIN tb_ferramentas f ON e.id_ferramenta = f.id " +
-                       "WHERE e.data_limite >= NOW() " +
-                       "ORDER BY nome_amigo;";
+        String query = "SELECT a.nome AS nome_amigo, f.nome AS nome_ferramenta, a.telefone AS telefone_amigo, f.preco AS preco "
+                + "FROM tb_emprestimos e "
+                + "JOIN tb_amigos a ON e.id_amigo = a.id "
+                + "JOIN tb_ferramentas f ON e.id_ferramenta = f.id "
+                + "WHERE e.data_limite >= NOW() "
+                + "ORDER BY nome_amigo;";
         return getRelatorio(query);
     }
 

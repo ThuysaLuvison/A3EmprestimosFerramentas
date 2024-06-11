@@ -115,7 +115,8 @@ public class Amigo {
      * @param nome - Nome do novo amigo a ser inserido no banco de dados.
      * @param telefone - Telefone do novo amigo a ser inserido no banco de
      * dados.
-     * @return - True se for bem-sudedida e operação, false caso o contrário.
+     * @return - Verdadeiro se for bem-sudedida e operação, falso caso o
+     * contrário.
      */
     public boolean insertAmigoBD(String nome, String telefone) {
         int id = this.maiorID() + 1;
@@ -129,7 +130,8 @@ public class Amigo {
      * Exclui o amigo do banco de dados com o ID especificado.
      *
      * @param id - Id do amigo a ser excluído do banco de dados.
-     * @return - True se a operação for bem-sucedida, false caso contrário.
+     * @return - Verdadeiro se a operação for bem-sucedida, falso caso
+     * contrário.
      */
     public boolean deleteAmigoBD(int id) {
         dao.deleteAmigoBD(id);
@@ -143,7 +145,8 @@ public class Amigo {
      * @param id - ID do amigo a ser atualizado no banco de dados.
      * @param nome - Nome do amigo a ser atualizado no banco de dados.
      * @param telefone - Telefone do amigo a ser atualizado no banco de dados.
-     * @return - True se a operação for bem-sucedida, false caso contrário.
+     * @return - Verdadeiro se a operação for bem-sucedida, falso caso
+     * contrário.
      */
     public boolean updateAmigoBD(int id, String nome, String telefone) {
         Amigo objeto = new Amigo(id, nome, telefone);
